@@ -38,7 +38,7 @@ static const Rule rules[] = {
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+//	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
 };
 
 /* layout(s) */
@@ -69,18 +69,20 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[] = { "st", NULL };
 static const char *browsercmd[]  = { "google-chrome-stable", NULL };
-static const char *volumeup[] = { "amixer", "-q", "sset", "Master", "1+", NULL };
-static const char *volumedown[] = { "amixer", "-q", "sset", "Master", "1-", NULL };
-static const char *volumemute[] = { "amixer", "-q", "sset", "Master", "toggle", NULL };
+// Volume control: amixer set Master percent(-/+)
+// Example: amixer set Master 10%-
+static const char *volumeup[] = { "amixer", "set", "Master", "5%+", NULL };
+static const char *volumedown[] = { "amixer", "set", "Master", "5%-", NULL };
+static const char *volumemute[] = { "amixer", "-q", "set", "Master", "toggle", NULL };
 
 static Key keys[] = {
 	/* modifier                     key			function        argument */
 	{ MODKEY,                       XK_p,		spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_g,		spawn,          {.v = browsercmd } },
 	{ MODKEY|ShiftMask,             XK_Return,	spawn,          {.v = termcmd } },
-	{ MODKEY,						XK_Up,		spawn,          {.v = volumeup } },   //音量增加
-    { MODKEY,						XK_Down,	spawn,          {.v = volumedown } }, //音量减小
-    { MODKEY,						XK_F12,     spawn,          {.v = volumemute } }, //静音
+	{ MODKEY,						XK_F12,		spawn,          {.v = volumeup } },   //音量增加
+	{ MODKEY,						XK_F11,		spawn,          {.v = volumedown } }, //音量减小
+    { MODKEY,						XK_F10,     spawn,          {.v = volumemute } }, //静音
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
