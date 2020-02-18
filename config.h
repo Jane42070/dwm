@@ -69,8 +69,17 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[] = { "st", NULL };
 static const char *browsercmd[]  = { "google-chrome-stable", NULL };
-// Volume control: amixer set Master percent(-/+)
-// Example: amixer set Master 10%-
+
+/* Perpare to add screenshot function
+ *
+ * Wishlist
+ * 1. Use Shortcut to take screenshot instead of printscreen, because my bluetooth-keyboard don't have this key
+ * 2. Use xclip to save screenshot instead of save to disk
+ * */
+
+/* Volume control: amixer set Master percent(-/+)
+ * Example: amixer set Master 10%-
+ * */
 static const char *volumeup[] = { "amixer", "set", "Master", "5%+", NULL };
 static const char *volumedown[] = { "amixer", "set", "Master", "5%-", NULL };
 static const char *volumemute[] = { "amixer", "-q", "set", "Master", "toggle", NULL };
