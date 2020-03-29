@@ -72,7 +72,7 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
+static char dmenumon[2]			 = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[]    = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]     = { "st", NULL };
 static const char *browsercmd[]  = { "chromium", NULL };
@@ -92,6 +92,7 @@ static const char *volumedown[] = { "amixer", "set", "Master", "5%-", NULL };
 static const char *volumemute[] = { "amixer", "-q", "set", "Master", "toggle", NULL };
 static const char *backlightinc[] = { "xbacklight", "-inc", "10", NULL};
 static const char *backlightdec[] = { "xbacklight", "-dec", "10", NULL};
+static const char *screenshot[]   = {"scrot", NULL};
 
 static Key keys[] = {
 	/* modifier                     key		   function        argument */
@@ -103,6 +104,7 @@ static Key keys[] = {
     { MODKEY,						XK_F1,     spawn,          {.v = volumemute } }, //静音
     { MODKEY,						XK_F5,     spawn,          {.v = backlightdec } }, // screen light
     { MODKEY,						XK_F6,     spawn,          {.v = backlightinc } }, // screen light
+    { MODKEY,						XK_Print,  spawn,          {.v = screenshot} }, // screenshot
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
