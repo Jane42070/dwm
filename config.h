@@ -93,6 +93,7 @@ static const char *volumemute[] = { "amixer", "-q", "set", "Master", "toggle", N
 static const char *backlightinc[] = { "xbacklight", "-inc", "10", NULL};
 static const char *backlightdec[] = { "xbacklight", "-dec", "10", NULL};
 static const char *screenshot[]   = {"scrot", NULL};
+// static const char *screenshot[]   = {"scrot", NULL};
 
 static Key keys[] = {
 	/* modifier                     key		   function        argument */
@@ -105,6 +106,7 @@ static Key keys[] = {
     { MODKEY,						XK_F5,     spawn,          {.v = backlightdec } }, // screen light
     { MODKEY,						XK_F6,     spawn,          {.v = backlightinc } }, // screen light
     { MODKEY,						XK_Print,  spawn,          {.v = screenshot} }, // screenshot
+    // { NULL,						XK_Print,  spawn,          {.v = screenshot} }, // screenshot to clipboard
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
