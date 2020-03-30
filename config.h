@@ -7,13 +7,14 @@ static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 0;        /* 0 means bottom bar */
 static const Bool viewontag         = True;     /* Switch view on tag switch */
-static const char *fonts[]          = { "Hack Nerd Font:size=13" };
-static const char dmenufont[]       = "Hack Nerd Font:size=13";
+static const char *fonts[]          = { "Hack Nerd Font:size=14" };
+static const char dmenufont[]       = "Hack Nerd Font:size=14";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#005577";
+// static const char col_cyan[]        = "#005577";
+static const char col_cyan[]        = "#42A5F5";
 static const unsigned int baralpha = 0xd0;
 static const unsigned int borderalpha = OPAQUE;
 static const char *colors[][3]      = {
@@ -46,7 +47,7 @@ static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] 
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 
-#include "layouts.c"
+// #include "layouts.c"
 #include "fibonacci.c"
 static const Layout layouts[] = {
 	/* symbol     arrange function */
@@ -55,7 +56,6 @@ static const Layout layouts[] = {
 	{ "Mono",      monocle },
 	{ "|M|",      centeredmaster },
 	{ ">M>",      centeredfloatingmaster },
-	{ "HHH",      grid },
  	{ "[@]",      spiral },
  	{ "[\\]",      dwindle },
 };
@@ -93,7 +93,7 @@ static const char *volumemute[] = { "amixer", "-q", "set", "Master", "toggle", N
 static const char *backlightinc[] = { "xbacklight", "-inc", "10", NULL};
 static const char *backlightdec[] = { "xbacklight", "-dec", "10", NULL};
 static const char *screenshot[]   = {"scrot", NULL};
-// static const char *screenshot[]   = {"scrot", NULL};
+static const char *flameshot[]   = {"sh", "~/my-scripts/screenshot.sh", NULL};
 
 static Key keys[] = {
 	/* modifier                     key		   function        argument */
@@ -106,7 +106,7 @@ static Key keys[] = {
     { MODKEY,						XK_F5,     spawn,          {.v = backlightdec } }, // screen light
     { MODKEY,						XK_F6,     spawn,          {.v = backlightinc } }, // screen light
     { MODKEY,						XK_Print,  spawn,          {.v = screenshot} }, // screenshot
-    // { NULL,						XK_Print,  spawn,          {.v = screenshot} }, // screenshot to clipboard
+	{ MODKEY|ShiftMask,				XK_Print,  spawn,          {.v = flameshot} }, // screenshot to clipboard
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -124,7 +124,6 @@ static Key keys[] = {
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY,                       XK_u,      setlayout,      {.v = &layouts[3]} },
 	{ MODKEY,                       XK_o,      setlayout,      {.v = &layouts[4]} },
-	{ MODKEY,                       XK_g,      setlayout,      {.v = &layouts[5]} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
