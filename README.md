@@ -40,8 +40,8 @@ exec dwm
 ```
 ### Lightdm (Login manager)
 
-- if you compiled and installed dwm from source keeping the defaults, its executable has to be in `/usr/local/bin`.
-- You have to create a new .desktop file in `/usr/share/xsessions/`:
+- If you compiled and installed dwm from source keeping the defaults, its executable has to be in `/usr/local/bin`.
+- Create a new .desktop file in `/usr/share/xsessions/`:
 - `sudo vim /usr/share/xsessions/dwm.desktop`
 - and paste the following content in it:
 ```
@@ -57,6 +57,8 @@ Type=Application
 
 ## Configuration
 - The configuration of dwm is done by creating a custom config.h and (re)compiling the source code.
+- Shortcuts are in config.h, and able to config
 
-### Shortcut
-- They are in config.h, and able to config
+## SCREENSHOTS
+![1](./screenshots/2020-09-12-194755_1920x1080_scrot.png)
+![2](./screenshots/2020-09-12-200244_1920x1080_scrot.png)
