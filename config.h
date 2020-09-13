@@ -1,32 +1,32 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 3;        /* border pixel of windows */
-static const unsigned int gappx     = 14;        /* gaps between windows */
-static const unsigned int snap      = 32;       /* snap pixel */
-static const int showbar            = 1;        /* 0 means no bar */
-static const int topbar             = 1;        /* 0 means bottom bar */
-static const Bool viewontag         = True;     /* Switch view on tag switch */
-static const char *fonts[]          = { "Hack Nerd Font:size=13" };
-static const char dmenufont[]       = "Hack Nerd Font:size=13";
+static const unsigned int borderpx    = 3;        /* border pixel of windows */
+static const unsigned int gappx       = 14;        /* gaps between windows */
+static const unsigned int snap        = 32;       /* snap pixel */
+static const int showbar              = 1;        /* 0 means no bar */
+static const int topbar               = 1;        /* 0 means bottom bar */
+static const Bool viewontag           = True;     /* Switch view on tag switch */
+static const char *fonts[]            = { "MonacoB:size=13" };
+static const char dmenufont[]         = "MonacoB:size=13";
 
 // status bar color
 // #222222
-static const char col_gray1[]       = "#272727";
+static const char col_gray1[]         = "#272727";
 // border color
 // #444444
-static const char col_gray2[]       = "#747474";
+static const char col_gray2[]         = "#747474";
 // unselected fonts color
 // #bbbbbb
-static const char col_gray3[]       = "#FF652F";
+static const char col_gray3[]         = "#FF652F";
 // selected fonts color
 // #eeeeee
-static const char col_gray4[]       = "#FFE400";
+static const char col_gray4[]         = "#FFE400";
 // selected window color
 // #005577
-static const char col_cyan[]        = "#14A76C";
+static const char col_cyan[]          = "#14A76C";
 
-static const unsigned int baralpha = 0xd0;
+static const unsigned int baralpha    = 0xd0;
 static const unsigned int borderalpha = OPAQUE;
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
@@ -50,7 +50,7 @@ static const Rule rules[] = {
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-//	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	//	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
 };
 
 /* layout(s) */
@@ -67,17 +67,17 @@ static const Layout layouts[] = {
 	{ "Mono",      monocle },
 	{ "|M|",      centeredmaster },
 	{ ">M>",      centeredfloatingmaster },
- 	{ "[@]",      spiral },
- 	{ "[\\]",      dwindle },
+	{ "[@]",      spiral },
+	{ "[\\]",      dwindle },
 };
 
 /* key definitions */
 #define MODKEY Mod1Mask
 #define TAGKEYS(KEY,TAG) \
-	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
-	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
-	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
-	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
+{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
+{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
+{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
+{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
@@ -98,13 +98,14 @@ static const char *browsercmd[]  = { "chromium", NULL };
 /* Volume control: amixer set Master percent(-/+)
  * Example: amixer set Master 10%-
  * */
-static const char *volumeup[]   = { "amixer", "set", "Master", "5%+", NULL };
-static const char *volumedown[] = { "amixer", "set", "Master", "5%-", NULL };
-static const char *volumemute[] = { "amixer", "-q", "set", "Master", "toggle", NULL };
+static const char *volumeup[]     = { "amixer", "set", "Master", "5%+", NULL };
+static const char *volumedown[]   = { "amixer", "set", "Master", "5%-", NULL };
+static const char *volumemute[]   = { "amixer", "-q", "set", "Master", "toggle", NULL };
 static const char *backlightinc[] = { "xbacklight", "-inc", "10", NULL};
 static const char *backlightdec[] = { "xbacklight", "-dec", "10", NULL};
-static const char *screenshot[]   = {"scrot", NULL};
-static const char *flameshot[]   = {"sh", "~/.config/my-scripts/screenshot.sh", NULL};
+static const char *screenshot[]   = {"scrot", "-q 100", NULL};
+static const char *flameshot[]    = {"sh", "~/.config/my-scripts/screenshot.sh", NULL};
+static const char *lockscreen[]   = {"slock", NULL};
 
 static Key keys[] = {
 	/* modifier                     key		   function        argument */
@@ -113,11 +114,12 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,						XK_F3,     spawn,          {.v = volumeup } },   //音量增加
 	{ MODKEY,						XK_F2,     spawn,          {.v = volumedown } }, //音量减小
-    { MODKEY,						XK_F1,     spawn,          {.v = volumemute } }, //静音
-    { MODKEY,						XK_F5,     spawn,          {.v = backlightdec } }, // screen light
-    { MODKEY,						XK_F6,     spawn,          {.v = backlightinc } }, // screen light
-    { MODKEY,						XK_Print,  spawn,          {.v = screenshot} }, // screenshot
+	{ MODKEY,						XK_F1,     spawn,          {.v = volumemute } }, //静音
+	{ MODKEY,						XK_F5,     spawn,          {.v = backlightdec } }, // screen light
+	{ MODKEY,						XK_F6,     spawn,          {.v = backlightinc } }, // screen light
+	{ MODKEY,						XK_Print,  spawn,          {.v = screenshot} }, // screenshot
 	{ MODKEY|ShiftMask,				XK_Print,  spawn,          {.v = flameshot} }, // screenshot to clipboard
+	{ MODKEY,                       XK_backslash, spawn,          {.v = lockscreen} },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -146,15 +148,15 @@ static Key keys[] = {
 	{ MODKEY,                       XK_equal,  setgaps,        {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
 	TAGKEYS(                        XK_1,                      0)
-	TAGKEYS(                        XK_2,                      1)
-	TAGKEYS(                        XK_3,                      2)
-	TAGKEYS(                        XK_4,                      3)
-	TAGKEYS(                        XK_5,                      4)
-	TAGKEYS(                        XK_6,                      5)
-	TAGKEYS(                        XK_7,                      6)
-	TAGKEYS(                        XK_8,                      7)
-	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+		TAGKEYS(                        XK_2,                      1)
+		TAGKEYS(                        XK_3,                      2)
+		TAGKEYS(                        XK_4,                      3)
+		TAGKEYS(                        XK_5,                      4)
+		TAGKEYS(                        XK_6,                      5)
+		TAGKEYS(                        XK_7,                      6)
+		TAGKEYS(                        XK_8,                      7)
+		TAGKEYS(                        XK_9,                      8)
+		{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 };
 
 /* button definitions */
