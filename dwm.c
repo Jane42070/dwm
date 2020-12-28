@@ -1502,7 +1502,7 @@ run(void)
 void
 runAutostart(void) {
 //	system("cd ~/.dwm; ./autostart_blocking.sh");
-	system("cd ~/.config/my-scripts; sh autostart.sh &");
+	system("cd ~/github/scripts; sh autostart.sh &");
 }
 
 void
