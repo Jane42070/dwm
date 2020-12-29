@@ -2,3 +2,4 @@
 *.rej
 *.o
 dwm
+ccom.sh
