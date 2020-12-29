@@ -62,13 +62,13 @@ static const int resizehints = 1;    /* 1 means respect size hints in tiled resi
 #include "fibonacci.c"
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "Tile",      tile },    /* first entry is default */
-	{ "Floa",      NULL },    /* no layout function means floating behavior */
-	{ "Mono",      monocle },
-	{ "|M|",      centeredmaster },
-	{ ">M>",      centeredfloatingmaster },
-	{ "[@]",      spiral },
-	{ "[\\]",      dwindle },
+	{ "Tile", tile },    /* first entry is default */
+	{ "Floa", NULL },    /* no layout function means floating behavior */
+	{ "Mono", monocle },
+	{  "|M|", centeredmaster },
+	{  ">M>", centeredfloatingmaster },
+	{  "[@]", spiral },
+	{ "[\\]", dwindle },
 };
 
 /* key definitions */
@@ -86,7 +86,7 @@ static const Layout layouts[] = {
 static char dmenumon[2]         = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[]   = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]    = { "st", NULL };
-static const char *browsercmd[] = { "chromium-browser", NULL };
+static const char *browsercmd[] = { "chromium", NULL };
 
 /* Perpare to add screenshot function
  *
