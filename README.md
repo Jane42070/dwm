@@ -62,3 +62,7 @@ Type=Application
 ## SCREENSHOTS
 ![1](./screenshots/2020-09-12-194755_1920x1080_scrot.png)
 ![2](./screenshots/2020-09-12-200244_1920x1080_scrot.png)
+
+## TODO
+- Preparing remove awesomebar patch
+- combine dwmblock
