@@ -5,26 +5,21 @@ static const unsigned int borderpx    = 2;        /* border pixel of windows */
 static const unsigned int gappx       = 5;        /* gaps between windows */
 static const unsigned int snap        = 10;       /* snap pixel */
 static const int showbar              = 1;        /* 0 means no bar */
-static const int topbar               = 1;        /* 0 means bottom bar */
+static const int topbar               = 0;        /* 0 means bottom bar */
 static const Bool viewontag           = True;     /* Switch view on tag switch */
 static const char *fonts[]            = { "Monaco:size=12" };
 static const char dmenufont[]         = "Monaco:size=12";
 
 // status bar color
-// #222222
-static const char col_gray1[]         = "#272727";
+static const char col_gray1[]         = "#222222";
 // border color
-// #444444
-static const char col_gray2[]         = "#747474";
+static const char col_gray2[]         = "#444444";
 // unselected fonts color
-// #bbbbbb
-static const char col_gray3[]         = "#FF652F";
+static const char col_gray3[]         = "#bbbbbb";
 // selected fonts color
-// #eeeeee
-static const char col_gray4[]         = "#FFE400";
+static const char col_gray4[]         = "#eeeeee";
 // selected window color
-// #005577
-static const char col_cyan[]          = "#14A76C";
+static const char col_cyan[]          = "#005577";
 
 static const unsigned int baralpha    = 0xd0;
 static const unsigned int borderalpha = OPAQUE;
@@ -61,9 +56,9 @@ static const int resizehints = 0;    /* 1 means respect size hints in tiled resi
 #include "fibonacci.c"
 static const Layout layouts[] = {
 	/* symbol     arrange function */
+	{ "Mono", monocle },
 	{ "Tile", tile },    /* first entry is default */
 	{ "Floa", NULL },    /* no layout function means floating behavior */
-	{ "Mono", monocle },
 	{  "|M|", centeredmaster },
 	{  ">M>", centeredfloatingmaster },
 	{  "[@]", spiral },
