@@ -10,23 +10,33 @@ static const Bool viewontag           = True;     /* Switch view on tag switch *
 static const char *fonts[]            = { "Monaco:size=12" };
 static const char dmenufont[]         = "Monaco:size=12";
 
-// status bar color
-static const char col_gray1[]         = "#222222";
-// border color
-static const char col_gray2[]         = "#444444";
-// unselected fonts color
-static const char col_gray3[]         = "#bbbbbb";
-// selected fonts color
-static const char col_gray4[]         = "#eeeeee";
-// selected window color
-static const char col_cyan[]          = "#005577";
+static const char col_gray1[] = "#222222";
+static const char col_gray2[] = "#444444";
+static const char col_gray3[] = "#bbbbbb";
+static const char col_gray4[] = "#eeeeee";
+static const char col_cyan[]  = "#005577";
+static const char col1[] = "#ffffff";
+static const char col2[] = "#ffffff";
+static const char col3[] = "#ffffff";
+static const char col4[] = "#ffffff";
+static const char col5[] = "#ffffff";
+static const char col6[] = "#ffffff";
+
+enum { SchemeNorm, SchemeCol1, SchemeCol2, SchemeCol3, SchemeCol4,
+       SchemeCol5, SchemeCol6, SchemeSel }; /* color schemes */
 
 static const unsigned int baralpha    = 0xd0;
 static const unsigned int borderalpha = OPAQUE;
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+	[SchemeNorm]  = { col_gray3, col_gray1, col_gray2 },
+	[SchemeCol1]  = { col1,      col_gray1, col_gray2 },
+	[SchemeCol2]  = { col2,      col_gray1, col_gray2 },
+	[SchemeCol3]  = { col3,      col_gray1, col_gray2 },
+	[SchemeCol4]  = { col4,      col_gray1, col_gray2 },
+	[SchemeCol5]  = { col5,      col_gray1, col_gray2 },
+	[SchemeCol6]  = { col6,      col_gray1, col_gray2 },
+	[SchemeSel]   = { col_gray4, col_cyan,  col_cyan  },
 };
 static const unsigned int alphas[][3]      = {
 	/*               fg      bg        border     */
@@ -100,12 +110,16 @@ static const char *backlightdec[] = { "xbacklight", "-dec", "10", NULL};
 static const char *screenshot[]   = {"scrot", "-q 100", NULL};
 static const char *flameshot[]    = {"sh", "~/github/scripts/screenshot.sh", NULL};
 static const char *lockscreen[]   = {"slock", NULL};
+static const char *shutdown[] = { "prompt", "Are you sure you want shutdown?", "shutdown -h now", NULL };
+static const char *reboot[] = { "prompt", "Are you sure you want reboot?", "reboot", NULL };
 
 static Key keys[] = {
 	/* modifier                     key		   function        argument */
 	{ MODKEY,                       XK_p,	   spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_g,	   spawn,          {.v = browsercmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_d,	   spawn,          {.v = shutdown } },
+	{ MODKEY|ShiftMask,             XK_d,	   spawn,          {.v = reboot } },
 	{ MODKEY,						XK_F3,     spawn,          {.v = volumeup } },   //音量增加
 	{ MODKEY,						XK_F2,     spawn,          {.v = volumedown } }, //音量减小
 	{ MODKEY,						XK_F1,     spawn,          {.v = volumemute } }, //静音
@@ -160,7 +174,9 @@ static Button buttons[] = {
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
 	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
-	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
+	{ ClkStatusText,        0,              Button1,        sigdwmblocks,   {.i = 1} },
+	{ ClkStatusText,        0,              Button2,        sigdwmblocks,   {.i = 2} },
+	{ ClkStatusText,        0,              Button3,        sigdwmblocks,   {.i = 3} },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
 	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
