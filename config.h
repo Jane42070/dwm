@@ -11,7 +11,6 @@ static const char *fonts[]            = {
 	"Operator Mono SSm Book:pixelsize=23",
 	"JoyPixels:pixelsize=23",
 	"Noto Color Emoji:pixelsize=23",
-	"OPPOSans:pixelsize=23",
 };
 static const char dmenufont[]         = "Operator Mono SSm Book:pixelsize=23";
 
