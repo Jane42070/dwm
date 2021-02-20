@@ -1,18 +1,18 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx    = 3;        /* border pixel of windows */
-static const unsigned int gappx       = 20;        /* gaps between windows */
-static const unsigned int snap        = 10;       /* snap pixel */
-static const int showbar              = 1;        /* 0 means no bar */
-static const int topbar               = 1;        /* 0 means bottom bar */
-static const Bool viewontag           = True;     /* Switch view on tag switch */
-static const char *fonts[]            = {
+static const unsigned int borderpx = 3;        /* border pixel of windows */
+static const unsigned int gappx    = 20;        /* gaps between windows */
+static const unsigned int snap     = 10;       /* snap pixel */
+static const int showbar           = 1;        /* 0 means no bar */
+static const int topbar            = 1;        /* 0 means bottom bar */
+static const Bool viewontag        = True;     /* Switch view on tag switch */
+static const char *fonts[]         = {
 	"Operator Mono SSm Book:pixelsize=23",
 	"JoyPixels:pixelsize=23",
 	"Noto Color Emoji:pixelsize=23",
 };
-static const char dmenufont[]         = "Operator Mono SSm Book:pixelsize=23";
+static const char dmenufont[] = "Operator Mono SSm Book:pixelsize=23";
 
 static const char col_gray1[] = "#222222";
 static const char col_gray2[] = "#444444";
@@ -59,6 +59,8 @@ static const Rule rules[] = {
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
+	{ "kicad",    NULL,       NULL,       0,            1,           -1 },
+	{ "Etcher",   NULL,       NULL,       0,            1,           -1 },
 	//	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
 };
 
@@ -86,7 +88,7 @@ static const Layout layouts[] = {
 #define WINKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
 { MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
-{ MODKEY|ControlMask,           KEY,      toggleview,      {.ui = 1 << TAG} }, \
+{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
 { MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
 { MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
@@ -183,7 +185,7 @@ static Button buttons[] = {
 	/* click                event mask      button          function        argument */
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
-	{ ClkWinTitle,          0,              Button1,        toggleview,      {0} },
+	{ ClkWinTitle,          0,              Button1,        toggleview,     {0} },
 	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
 	{ ClkStatusText,        0,              Button1,        sigdwmblocks,   {.i = 1} },
 	{ ClkStatusText,        0,              Button1,        sigdwmblocks,   {.i = 2} },
