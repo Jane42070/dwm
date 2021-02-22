@@ -27,7 +27,7 @@ static const char col5[] = "#ffffff";
 static const char col6[] = "#ffffff";
 
 enum { SchemeNorm, SchemeCol1, SchemeCol2, SchemeCol3, SchemeCol4,
-       SchemeCol5, SchemeCol6, SchemeSel, SchemeHid }; /* color schemes */
+       SchemeCol5, SchemeCol6, SchemeSel }; /* color schemes */
 
 static const unsigned int baralpha    = 0xd0;
 static const unsigned int borderalpha = OPAQUE;
@@ -41,7 +41,6 @@ static const char *colors[][3]      = {
 	[SchemeCol5] = { col5,      col_gray1, col_gray2 },
 	[SchemeCol6] = { col6,      col_gray1, col_gray2 },
 	[SchemeSel]  = { col_gray4,  col_cyan, col_cyan  },
-	[SchemeHid]  = { col_gray1, col_gray1, col_cyan  },
 };
 static const unsigned int alphas[][3]      = {
 	/*               fg      bg        border     */
