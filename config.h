@@ -84,7 +84,9 @@ static const Layout layouts[] = {
 
 
 /* key definitions */
+// Alt
 #define MODKEY Mod1Mask
+// Win
 #define WINKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
 { MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
@@ -190,6 +192,9 @@ static Button buttons[] = {
 	{ ClkStatusText,        0,              Button1,        sigdwmblocks,   {.i = 1} },
 	{ ClkStatusText,        0,              Button2,        sigdwmblocks,   {.i = 2} },
 	{ ClkStatusText,        0,              Button3,        sigdwmblocks,   {.i = 3} },
+	{ ClkStatusText,        ControlMask,    Button1,        sigdwmblocks,   {.i = 4} },
+	{ ClkStatusText,        ControlMask,    Button2,        sigdwmblocks,   {.i = 5} },
+	{ ClkStatusText,        ControlMask,    Button3,        sigdwmblocks,   {.i = 6} },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
 	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
