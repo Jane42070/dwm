@@ -87,6 +87,7 @@ static const Layout layouts[] = {
 #define XF86MonBrightnessUp 0x1008ff02
 #define XF86MonBrightnessDown 0x1008ff03
 #define XF86AudioMute 0x1008ff12
+#define XF86AudioMicMute 0x1008ffb2
 #define XF86AudioLowerVolume 0x1008ff11
 #define XF86AudioRaiseVolume 0x1008ff13
 #define XF86ScreenSaver 0x1008ff2d
@@ -125,6 +126,7 @@ static const char *clipboard[]  = { "clipmenu", NULL };
 static const char *volumeup[]     = { "pamixer", "-i", "5", NULL };
 static const char *volumedown[]   = { "pamixer", "-d", "5", NULL };
 static const char *volumemute[]   = { "pamixer", "-t", NULL };
+static const char *micmute[]      = { "pamixer", "--default-source", "-t", NULL };
 static const char *backlightinc[] = { "xbacklight", "-inc", "10", NULL};
 static const char *backlightdec[] = { "xbacklight", "-dec", "10", NULL};
 static const char *screentools[]  = { "screentools", NULL};
@@ -142,6 +144,7 @@ static Key keys[] = {
 	// { MODKEY,                       XK_d,      spawn,          {.v = shutdown     } },
 	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = reboot       } },
 	{ 0,                   XF86AudioMute,      spawn,          {.v = volumemute   } }, // 静音
+	{ 0,                XF86AudioMicMute,      spawn,          {.v = micmute      } }, // 静音
 	{ 0,            XF86AudioLowerVolume,      spawn,          {.v = volumedown   } }, // 音量减小
 	{ 0,            XF86AudioRaiseVolume,      spawn,          {.v = volumeup     } }, // 音量增加
 	{ 0,           XF86MonBrightnessDown,      spawn,          {.v = backlightdec } }, // screen light
