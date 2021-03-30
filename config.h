@@ -1,18 +1,18 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx = 3;        /* border pixel of windows */
-static const unsigned int gappx    = 20;        /* gaps between windows */
+static const unsigned int borderpx = 2;        /* border pixel of windows */
+static const unsigned int gappx    = 27;        /* gaps between windows */
 static const unsigned int snap     = 10;       /* snap pixel */
 static const int showbar           = 1;        /* 0 means no bar */
 static const int topbar            = 1;        /* 0 means bottom bar */
 static const Bool viewontag        = True;     /* Switch view on tag switch */
 static const char *fonts[]         = {
-	"Operator Mono SSm Book:pixelsize=23",
-	"JoyPixels:pixelsize=23",
-	"Noto Color Emoji:pixelsize=23",
+	"Operator Mono SSm Book:pixelsize=16",
+	"JoyPixels:pixelsize=16",
+	"Noto Color Emoji:pixelsize=16",
 };
-static const char dmenufont[] = "Operator Mono SSm Book:pixelsize=23";
+static const char dmenufont[] = "Operator Mono SSm Book:pixelsize=16";
 
 static const char col_gray1[] = "#222222";
 static const char col_gray2[] = "#444444";
@@ -84,6 +84,14 @@ static const Layout layouts[] = {
 
 
 /* key definitions */
+#define XF86MonBrightnessUp 0x1008ff02
+#define XF86MonBrightnessDown 0x1008ff03
+#define XF86AudioMute 0x1008ff12
+#define XF86AudioLowerVolume 0x1008ff11
+#define XF86AudioRaiseVolume 0x1008ff13
+#define XF86ScreenSaver 0x1008ff2d
+#define XF86TouchpadToggle 0x1008ffa9
+#define XF86WebCam 0x1008ff8f
 // Alt
 #define MODKEY Mod1Mask
 // Win
@@ -114,12 +122,13 @@ static const char *clipboard[]  = { "clipmenu", NULL };
 /* Volume control: amixer set Master percent(-/+)
  * Example: amixer set Master 10%-
  * */
-static const char *volumeup[]     = { "amixer", "set", "Master", "5%+", NULL };
-static const char *volumedown[]   = { "amixer", "set", "Master", "5%-", NULL };
-static const char *volumemute[]   = { "amixer", "-q", "set", "Master", "toggle", NULL };
+static const char *volumeup[]     = { "pamixer", "-i", "5", NULL };
+static const char *volumedown[]   = { "pamixer", "-d", "5", NULL };
+static const char *volumemute[]   = { "pamixer", "-t", NULL };
 static const char *backlightinc[] = { "xbacklight", "-inc", "10", NULL};
 static const char *backlightdec[] = { "xbacklight", "-dec", "10", NULL};
 static const char *screentools[]  = { "screentools", NULL};
+static const char *webcam[]       = { "mpv", "/dev/video0", NULL};
 static const char *flameshot[]    = { "sh", "~/github/scripts/screenshot.sh", NULL};
 static const char *lockscreen[]   = { "slock", NULL};
 // static const char *shutdown[]     = { "prompt", "Are you sure you want shutdown?", "shutdown -h now", NULL };
@@ -132,11 +141,13 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,        XK_Return,      spawn,          {.v = termcmd      } },
 	// { MODKEY,                       XK_d,      spawn,          {.v = shutdown     } },
 	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = reboot       } },
-	{ MODKEY,                      XK_F1,      spawn,          {.v = volumemute   } }, // 静音
-	{ MODKEY,                      XK_F2,      spawn,          {.v = volumedown   } }, // 音量减小
-	{ MODKEY,                      XK_F3,      spawn,          {.v = volumeup     } }, // 音量增加
-	{ MODKEY,                      XK_F5,      spawn,          {.v = backlightdec } }, // screen light
-	{ MODKEY,                      XK_F6,      spawn,          {.v = backlightinc } }, // screen light
+	{ 0,                   XF86AudioMute,      spawn,          {.v = volumemute   } }, // 静音
+	{ 0,            XF86AudioLowerVolume,      spawn,          {.v = volumedown   } }, // 音量减小
+	{ 0,            XF86AudioRaiseVolume,      spawn,          {.v = volumeup     } }, // 音量增加
+	{ 0,           XF86MonBrightnessDown,      spawn,          {.v = backlightdec } }, // screen light
+	{ 0,             XF86MonBrightnessUp,      spawn,          {.v = backlightinc } }, // screen light
+	{ 0,                 XF86ScreenSaver,      spawn,          {.v = lockscreen   } }, // screen light
+	{ 0,                      XF86WebCam,      spawn,          {.v = webcam       } }, // screen light
 	{ WINKEY|ShiftMask,             XK_5,      spawn,          {.v = screentools  } }, // screentools
 	{ MODKEY|ShiftMask,         XK_Print,      spawn,          {.v = flameshot    } }, // screenshot to clipboard
 	{ MODKEY,               XK_backslash,      spawn,          {.v = lockscreen   } },
