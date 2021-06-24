@@ -2,17 +2,19 @@
 
 /* appearance */
 static const unsigned int borderpx = 2;        /* border pixel of windows */
-static const unsigned int gappx    = 27;        /* gaps between windows */
+static const unsigned int gappx    = 7;        /* gaps between windows */
 static const unsigned int snap     = 10;       /* snap pixel */
 static const int showbar           = 1;        /* 0 means no bar */
 static const int topbar            = 1;        /* 0 means bottom bar */
 static const Bool viewontag        = True;     /* Switch view on tag switch */
 static const char *fonts[]         = {
-	"Operator Mono SSm Book:pixelsize=16",
+	"Terminus:pixelsize=16",
+	"Dotted Songti Circle:pixelsize=16",
+	// "Operator Mono SSm Book:pixelsize=16",
 	"JoyPixels:pixelsize=16",
 	"Noto Color Emoji:pixelsize=16",
 };
-static const char dmenufont[] = "Operator Mono SSm Book:pixelsize=16";
+static const char dmenufont[] = "Terminus:pixelsize=16";
 
 static const char col_gray1[] = "#222222";
 static const char col_gray2[] = "#444444";
@@ -49,7 +51,8 @@ static const unsigned int alphas[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = {"\uf120", "\uf7ae", "\uf04b", "\uf121", "\ue62e", "\u266C", "\ue727", "\uf537", "\uf684"};
+// static const char *tags[] = {"\uf120", "\uf7ae", "\uf04b", "\uf121", "\ue62e", "\u266C", "\ue727", "\uf537", "\uf684"};
+static const char *tags[] = {"1", "2", "3", "4"};
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -57,10 +60,12 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "kicad",    NULL,       NULL,       0,            1,           -1 },
-	{ "Etcher",   NULL,       NULL,       0,            1,           -1 },
-	{ "Telegram", NULL,       NULL,       0,            1,           -1 },
+	{ "wps",         NULL,       NULL,       0,            1,           -1 },
+	{ "Gimp",        NULL,       NULL,       0,            1,           -1 },
+	{ "kicad",       NULL,       NULL,       0,            1,           -1 },
+	{ "Etcher",      NULL,       NULL,       0,            1,           -1 },
+	{ "Telegram",    NULL,       NULL,       0,            1,           -1 },
+	{ "electron-qq", NULL,       NULL,       0,            1,           -1 },
 	//	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
 };
 
@@ -123,18 +128,19 @@ static const char *clipboard[]  = { "clipmenu", NULL };
 /* Volume control: amixer set Master percent(-/+)
  * Example: amixer set Master 10%-
  * */
-static const char *volumeup[]     = { "pamixer", "-i", "5", NULL };
-static const char *volumedown[]   = { "pamixer", "-d", "5", NULL };
-static const char *volumemute[]   = { "pamixer", "-t", NULL };
-static const char *micmute[]      = { "pamixer", "--default-source", "-t", NULL };
-static const char *backlightinc[] = { "xbacklight", "-inc", "10", NULL};
-static const char *backlightdec[] = { "xbacklight", "-dec", "10", NULL};
-static const char *screentools[]  = { "screentools", NULL};
-static const char *webcam[]       = { "mpv", "/dev/video0", NULL};
-static const char *flameshot[]    = { "sh", "~/github/scripts/screenshot.sh", NULL};
-static const char *lockscreen[]   = { "slock", NULL};
+static const char *volumeup[]       = { "sound", "4", NULL };
+static const char *volumedown[]     = { "sound", "6", NULL };
+static const char *volumemute[]     = { "sound", "2", NULL };
+static const char *micmute[]        = { "pamixer", "--default-source", "-t", NULL };
+static const char *backlightinc[]   = { "xbacklight", "-inc", "10", NULL};
+static const char *backlightdec[]   = { "xbacklight", "-dec", "10", NULL};
+static const char *screentools[]    = { "screentools", NULL};
+static const char *webcam[]         = { "mpv", "/dev/video0", NULL};
+static const char *touchpadtoggle[] = { "touchpadtoggle", NULL};
+static const char *flameshot[]      = { "sh", "~/github/scripts/screenshot.sh", NULL};
+static const char *lockscreen[]     = { "slock", NULL};
 // static const char *shutdown[]     = { "prompt", "Are you sure you want shutdown?", "shutdown -h now", NULL };
-static const char *reboot[]       = { "prompt", "Are you sure you want reboot?", "reboot", NULL };
+static const char *reboot[]         = { "prompt", "Are you sure you want reboot?", "reboot", NULL };
 
 static Key keys[] = {
 	/* modifier                     key		   function        argument */
@@ -151,6 +157,7 @@ static Key keys[] = {
 	{ 0,             XF86MonBrightnessUp,      spawn,          {.v = backlightinc } }, // screen light
 	{ 0,                 XF86ScreenSaver,      spawn,          {.v = lockscreen   } }, // screen light
 	{ 0,                      XF86WebCam,      spawn,          {.v = webcam       } }, // screen light
+	{ 0,              XF86TouchpadToggle,      spawn,          {.v = touchpadtoggle     } }, // screen light
 	{ WINKEY|ShiftMask,             XK_5,      spawn,          {.v = screentools  } }, // screentools
 	{ MODKEY|ShiftMask,         XK_Print,      spawn,          {.v = flameshot    } }, // screenshot to clipboard
 	{ MODKEY,               XK_backslash,      spawn,          {.v = lockscreen   } },
