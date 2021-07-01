@@ -2,14 +2,14 @@
 
 /* appearance */
 static const unsigned int borderpx = 2;        /* border pixel of windows */
-static const unsigned int gappx    = 7;        /* gaps between windows */
+static const unsigned int gappx    = 12;        /* gaps between windows */
 static const unsigned int snap     = 10;       /* snap pixel */
 static const int showbar           = 1;        /* 0 means no bar */
 static const int topbar            = 1;        /* 0 means bottom bar */
 static const Bool viewontag        = True;     /* Switch view on tag switch */
 static const char *fonts[]         = {
 	"Terminus:pixelsize=16",
-	"Dotted Songti Circle:pixelsize=16",
+	"SimSun:pixelsize=16",
 	// "Operator Mono SSm Book:pixelsize=16",
 	"JoyPixels:pixelsize=16",
 	"Noto Color Emoji:pixelsize=16",
@@ -89,15 +89,15 @@ static const Layout layouts[] = {
 
 
 /* key definitions */
-#define XF86MonBrightnessUp 0x1008ff02
-#define XF86MonBrightnessDown 0x1008ff03
+#define XF86WebCam 0x1008ff8f
+#define XF86ScreenSaver 0x1008ff2d
 #define XF86AudioMute 0x1008ff12
 #define XF86AudioMicMute 0x1008ffb2
+#define XF86TouchpadToggle 0x1008ffa9
 #define XF86AudioLowerVolume 0x1008ff11
 #define XF86AudioRaiseVolume 0x1008ff13
-#define XF86ScreenSaver 0x1008ff2d
-#define XF86TouchpadToggle 0x1008ffa9
-#define XF86WebCam 0x1008ff8f
+#define XF86MonBrightnessUp 0x1008ff02
+#define XF86MonBrightnessDown 0x1008ff03
 // Alt
 #define MODKEY Mod1Mask
 // Win
@@ -109,7 +109,7 @@ static const Layout layouts[] = {
 { MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
-#define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
+#define SHCMD(cmd) { .v = (const char*[]){ "/bin/zsh", "-c", cmd, NULL } }
 
 /* commands */
 static char dmenumon[2]         = "0"; /* component of dmenucmd, manipulated in spawn() */
@@ -135,9 +135,9 @@ static const char *micmute[]        = { "pamixer", "--default-source", "-t", NUL
 static const char *backlightinc[]   = { "xbacklight", "-inc", "10", NULL};
 static const char *backlightdec[]   = { "xbacklight", "-dec", "10", NULL};
 static const char *screentools[]    = { "screentools", NULL};
+static const char *screenshot[]     = { "screenshot", NULL };
 static const char *webcam[]         = { "mpv", "/dev/video0", NULL};
 static const char *touchpadtoggle[] = { "touchpadtoggle", NULL};
-static const char *flameshot[]      = { "sh", "~/github/scripts/screenshot.sh", NULL};
 static const char *lockscreen[]     = { "slock", NULL};
 // static const char *shutdown[]     = { "prompt", "Are you sure you want shutdown?", "shutdown -h now", NULL };
 static const char *reboot[]         = { "prompt", "Are you sure you want reboot?", "reboot", NULL };
@@ -159,7 +159,7 @@ static Key keys[] = {
 	{ 0,                      XF86WebCam,      spawn,          {.v = webcam       } }, // screen light
 	{ 0,              XF86TouchpadToggle,      spawn,          {.v = touchpadtoggle     } }, // screen light
 	{ WINKEY|ShiftMask,             XK_5,      spawn,          {.v = screentools  } }, // screentools
-	{ MODKEY|ShiftMask,         XK_Print,      spawn,          {.v = flameshot    } }, // screenshot to clipboard
+	{ 0,                        XK_Print,      spawn,          {.v = screenshot   } }, // screenshot to clipboard
 	{ MODKEY,               XK_backslash,      spawn,          {.v = lockscreen   } },
 	{ MODKEY|ShiftMask,             XK_v,      spawn,          {.v = clipboard    } },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
