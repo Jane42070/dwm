@@ -1,20 +1,21 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx = 2;        /* border pixel of windows */
-static const unsigned int gappx    = 12;        /* gaps between windows */
+static const unsigned int borderpx = 4;        /* border pixel of windows */
+static const unsigned int gappx    = 9;        /* gaps between windows */
 static const unsigned int snap     = 10;       /* snap pixel */
 static const int showbar           = 1;        /* 0 means no bar */
 static const int topbar            = 1;        /* 0 means bottom bar */
 static const Bool viewontag        = True;     /* Switch view on tag switch */
 static const char *fonts[]         = {
-	"Terminus:pixelsize=16",
-	"SimSun:pixelsize=16",
-	// "Operator Mono SSm Book:pixelsize=16",
-	"JoyPixels:pixelsize=16",
-	"Noto Color Emoji:pixelsize=16",
+	"Cascadia Mono:size=11"
+	"Hack Nerd Font Mono:size=11",
+	"WenQuanYi Zen Hei Mono:size=11",
+	// "Operator Mono SSm Book:size=11",
+	"JoyPixels:size=11",
+	"Noto Color Emoji:size=11",
 };
-static const char dmenufont[] = "Terminus:pixelsize=16";
+static const char dmenufont[] = "Cascadia Mono:size=11";
 
 static const char col_gray1[] = "#222222";
 static const char col_gray2[] = "#444444";
@@ -64,9 +65,9 @@ static const Rule rules[] = {
 	{ "Gimp",        NULL,       NULL,       0,            1,           -1 },
 	{ "kicad",       NULL,       NULL,       0,            1,           -1 },
 	{ "Etcher",      NULL,       NULL,       0,            1,           -1 },
+	{ "chromium",    NULL,       NULL,       1 << 8,       0,           -1 },
 	{ "Telegram",    NULL,       NULL,       0,            1,           -1 },
-	{ "electron-qq", NULL,       NULL,       0,            1,           -1 },
-	//	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	{ "icalingua",   NULL,       NULL,       0,            1,           -1 },
 };
 
 /* layout(s) */
@@ -98,6 +99,7 @@ static const Layout layouts[] = {
 #define XF86AudioRaiseVolume 0x1008ff13
 #define XF86MonBrightnessUp 0x1008ff02
 #define XF86MonBrightnessDown 0x1008ff03
+#define XF86LockScreen 0xffeb
 // Alt
 #define MODKEY Mod1Mask
 // Win
@@ -114,8 +116,8 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2]         = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[]   = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *termcmd[]    = { "st", NULL };
-static const char *browsercmd[] = { "brave", NULL };
+static const char *termcmd[]    = { "st", NULL};
+static const char *browsercmd[] = { "microsoft-edge-stable", NULL };
 static const char *clipboard[]  = { "clipmenu", NULL };
 
 /* Perpare to add screenshot function
@@ -161,6 +163,7 @@ static Key keys[] = {
 	{ WINKEY|ShiftMask,             XK_5,      spawn,          {.v = screentools  } }, // screentools
 	{ 0,                        XK_Print,      spawn,          {.v = screenshot   } }, // screenshot to clipboard
 	{ MODKEY,               XK_backslash,      spawn,          {.v = lockscreen   } },
+	{ 0,                    XF86LockScreen,    spawn,          {.v = lockscreen   } },
 	{ MODKEY|ShiftMask,             XK_v,      spawn,          {.v = clipboard    } },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[1]} },

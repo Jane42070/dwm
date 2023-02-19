@@ -1,0 +1,2 @@
+#!/bin/sh
+[ $(echo -e "Screenshot\nRecord" | dmenu -p "What you gonna do ?") == "Record" ] && peek || scrot -s
