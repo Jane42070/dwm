@@ -53,7 +53,7 @@ static const unsigned int alphas[][3]      = {
 
 /* tagging */
 // static const char *tags[] = {"\uf120", "\uf7ae", "\uf04b", "\uf121", "\ue62e", "\u266C", "\ue727", "\uf537", "\uf684"};
-static const char *tags[] = {"1", "2", "3", "4"};
+static const char *tags[] = {"1", "2", "3", "4", "5", "6"};
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -164,7 +164,7 @@ static Key keys[] = {
 	{ 0,                        XK_Print,      spawn,          {.v = screenshot   } }, // screenshot to clipboard
 	{ MODKEY,               XK_backslash,      spawn,          {.v = lockscreen   } },
 	// { 0,                    XF86LockScreen,    spawn,          {.v = lockscreen   } },
-	{ MODKEY|ShiftMask,             XK_v,      spawn,          {.v = clipboard    } },
+	{ ALTKEY|ShiftMask,             XK_v,      spawn,          {.v = clipboard    } },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[2]} },
