@@ -1,8 +1,8 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx = 4;        /* border pixel of windows */
-static const unsigned int gappx    = 9;        /* gaps between windows */
+static const unsigned int borderpx = 2;        /* border pixel of windows */
+static const unsigned int gappx    = 18;        /* gaps between windows */
 static const unsigned int snap     = 10;       /* snap pixel */
 static const int showbar           = 1;        /* 0 means no bar */
 static const int topbar            = 1;        /* 0 means bottom bar */
@@ -101,9 +101,9 @@ static const Layout layouts[] = {
 #define XF86MonBrightnessDown 0x1008ff03
 #define XF86LockScreen 0xffeb
 // Alt
-#define MODKEY Mod1Mask
+#define MODKEY Mod4Mask
 // Win
-#define WINKEY Mod4Mask
+#define ALTKEY Mod1Mask
 #define TAGKEYS(KEY,TAG) \
 { MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 { MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -160,10 +160,10 @@ static Key keys[] = {
 	{ 0,                 XF86ScreenSaver,      spawn,          {.v = lockscreen   } }, // screen light
 	{ 0,                      XF86WebCam,      spawn,          {.v = webcam       } }, // screen light
 	{ 0,              XF86TouchpadToggle,      spawn,          {.v = touchpadtoggle     } }, // screen light
-	{ WINKEY|ShiftMask,             XK_5,      spawn,          {.v = screentools  } }, // screentools
+	{ ALTKEY|ShiftMask,             XK_5,      spawn,          {.v = screentools  } }, // screentools
 	{ 0,                        XK_Print,      spawn,          {.v = screenshot   } }, // screenshot to clipboard
 	{ MODKEY,               XK_backslash,      spawn,          {.v = lockscreen   } },
-	{ 0,                    XF86LockScreen,    spawn,          {.v = lockscreen   } },
+	// { 0,                    XF86LockScreen,    spawn,          {.v = lockscreen   } },
 	{ MODKEY|ShiftMask,             XK_v,      spawn,          {.v = clipboard    } },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[1]} },
