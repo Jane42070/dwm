@@ -1,7 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx = 2;        /* border pixel of windows */
+static const unsigned int borderpx = 4;        /* border pixel of windows */
 static const unsigned int gappx    = 18;        /* gaps between windows */
 static const unsigned int snap     = 10;       /* snap pixel */
 static const int showbar           = 1;        /* 0 means no bar */
@@ -141,16 +141,14 @@ static const char *screenshot[]     = { "screenshot", NULL };
 static const char *webcam[]         = { "mpv", "/dev/video0", NULL};
 static const char *touchpadtoggle[] = { "touchpadtoggle", NULL};
 static const char *lockscreen[]     = { "slock", NULL};
-// static const char *shutdown[]     = { "prompt", "Are you sure you want shutdown?", "shutdown -h now", NULL };
-static const char *reboot[]         = { "prompt", "Are you sure you want reboot?", "reboot", NULL };
+static const char *shutdownOrReboot[]         = { "prompts", "shutdown or reboot?", "shutdown", "reboot", "no", "sudo shutdown -h now", "sudo reboot", "echo no", NULL };
 
 static Key keys[] = {
 	/* modifier                     key		   function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd     } },
 	{ MODKEY|ShiftMask,             XK_g,      spawn,          {.v = browsercmd   } },
 	{ MODKEY|ShiftMask,        XK_Return,      spawn,          {.v = termcmd      } },
-	// { MODKEY,                       XK_d,      spawn,          {.v = shutdown     } },
-	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = reboot       } },
+	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = shutdownOrReboot } },
 	{ 0,                   XF86AudioMute,      spawn,          {.v = volumemute   } }, // 静音
 	{ 0,                XF86AudioMicMute,      spawn,          {.v = micmute      } }, // 静音
 	{ 0,            XF86AudioLowerVolume,      spawn,          {.v = volumedown   } }, // 音量减小
@@ -188,7 +186,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,         XK_equal,      setgaps,        {.i = 0  } },
 	{ MODKEY,                  XK_Return,      zoom,           {0} },
 	{ MODKEY,                     XK_Tab,      view,           {0} },
-	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
+	{ MODKEY,                       XK_q,      killclient,     {0} },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY|ShiftMask,             XK_f,      fullscreen,     {0} },
 	{ MODKEY,                   XK_space,      setlayout,      {0} },
@@ -219,9 +217,9 @@ static Button buttons[] = {
 	{ ClkStatusText,        ControlMask,    Button1,        sigdwmblocks,   {.i = 4} },
 	{ ClkStatusText,        ControlMask,    Button2,        sigdwmblocks,   {.i = 5} },
 	{ ClkStatusText,        ControlMask,    Button3,        sigdwmblocks,   {.i = 6} },
-	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
+	{ ClkClientWin,         MODKEY,                   Button1,        movemouse,      {0} },
+	{ ClkClientWin,         MODKEY|ShiftMask,         Button1,        resizemouse,    {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
-	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
 	{ ClkTagBar,            0,              Button1,        view,           {0} },
 	{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
