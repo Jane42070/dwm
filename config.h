@@ -1,7 +1,18 @@
 /* See LICENSE file for copyright and license details. */
 
+/* key definitions */
+#include <X11/XF86keysym.h>
+
+/* Programs definitions */
+#define TERMINAL "st"
+#define BROWSER "librewolf"
+#define VIDEO "mpv"
+#define MUSIC "ncmpcpp"
+#define SCREENS "screenshot"
+#define SCREENLOCK "slock"
+
 /* appearance */
-static const unsigned int borderpx = 4;        /* border pixel of windows */
+static const unsigned int borderpx = 2;        /* border pixel of windows */
 static const unsigned int gappx    = 18;        /* gaps between windows */
 static const unsigned int snap     = 10;       /* snap pixel */
 static const int showbar           = 1;        /* 0 means no bar */
@@ -88,18 +99,6 @@ static const Layout layouts[] = {
 	{ "[\\]", dwindle },
 };
 
-
-/* key definitions */
-#define XF86WebCam 0x1008ff8f
-#define XF86ScreenSaver 0x1008ff2d
-#define XF86AudioMute 0x1008ff12
-#define XF86AudioMicMute 0x1008ffb2
-#define XF86TouchpadToggle 0x1008ffa9
-#define XF86AudioLowerVolume 0x1008ff11
-#define XF86AudioRaiseVolume 0x1008ff13
-#define XF86MonBrightnessUp 0x1008ff02
-#define XF86MonBrightnessDown 0x1008ff03
-#define XF86LockScreen 0xffeb
 // Alt
 #define MODKEY Mod4Mask
 // Win
@@ -116,8 +115,8 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2]         = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[]   = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *termcmd[]    = { "st", NULL};
-static const char *browsercmd[] = { "microsoft-edge-stable", NULL };
+static const char *termcmd[]    = { TERMINAL, NULL};
+static const char *browsercmd[] = { BROWSER, NULL };
 static const char *clipboard[]  = { "clipmenu", NULL };
 
 /* Perpare to add screenshot function
@@ -130,18 +129,18 @@ static const char *clipboard[]  = { "clipmenu", NULL };
 /* Volume control: amixer set Master percent(-/+)
  * Example: amixer set Master 10%-
  * */
-static const char *volumeup[]       = { "sound", "4", NULL };
-static const char *volumedown[]     = { "sound", "6", NULL };
-static const char *volumemute[]     = { "sound", "2", NULL };
-static const char *micmute[]        = { "pamixer", "--default-source", "-t", NULL };
-static const char *backlightinc[]   = { "xbacklight", "-inc", "10", NULL};
-static const char *backlightdec[]   = { "xbacklight", "-dec", "10", NULL};
-static const char *screentools[]    = { "screentools", NULL};
-static const char *screenshot[]     = { "screenshot", NULL };
-static const char *webcam[]         = { "mpv", "/dev/video0", NULL};
-static const char *touchpadtoggle[] = { "touchpadtoggle", NULL};
-static const char *lockscreen[]     = { "slock", NULL};
-static const char *shutdownOrReboot[]         = { "prompts", "shutdown or reboot?", "shutdown", "reboot", "no", "sudo shutdown -h now", "sudo reboot", "echo no", NULL };
+static const char *volumeup[]         = { "sound", "4", NULL };
+static const char *volumedown[]       = { "sound", "6", NULL };
+static const char *volumemute[]       = { "sound", "2", NULL };
+static const char *micmute[]          = { "pamixer", "--default-source", "-t", NULL };
+static const char *backlightinc[]     = { "xbacklight", "-inc", "10", NULL};
+static const char *backlightdec[]     = { "xbacklight", "-dec", "10", NULL};
+static const char *screentools[]      = { "screentools", NULL};
+static const char *screenshot[]       = { "screenshot", NULL };
+static const char *webcam[]           = { VIDEO, "/dev/video0", NULL};
+static const char *touchpadtoggle[]   = { "touchpadtoggle", NULL};
+static const char *lockscreen[]       = { SCREENLOCK, NULL};
+static const char *shutdownOrReboot[] = { "prompts", "shutdown or reboot?", "shutdown", "reboot", "no", "sudo shutdown -h now", "sudo reboot", "echo no", NULL };
 
 static Key keys[] = {
 	/* modifier                     key		   function        argument */
@@ -149,15 +148,15 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_g,      spawn,          {.v = browsercmd   } },
 	{ MODKEY|ShiftMask,        XK_Return,      spawn,          {.v = termcmd      } },
 	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = shutdownOrReboot } },
-	{ 0,                   XF86AudioMute,      spawn,          {.v = volumemute   } }, // 静音
-	{ 0,                XF86AudioMicMute,      spawn,          {.v = micmute      } }, // 静音
-	{ 0,            XF86AudioLowerVolume,      spawn,          {.v = volumedown   } }, // 音量减小
-	{ 0,            XF86AudioRaiseVolume,      spawn,          {.v = volumeup     } }, // 音量增加
-	{ 0,           XF86MonBrightnessDown,      spawn,          {.v = backlightdec } }, // screen light
-	{ 0,             XF86MonBrightnessUp,      spawn,          {.v = backlightinc } }, // screen light
-	{ 0,                 XF86ScreenSaver,      spawn,          {.v = lockscreen   } }, // screen light
-	{ 0,                      XF86WebCam,      spawn,          {.v = webcam       } }, // screen light
-	{ 0,              XF86TouchpadToggle,      spawn,          {.v = touchpadtoggle     } }, // screen light
+	{ 0,                XF86XK_AudioMute,      spawn,          {.v = volumemute   } }, // 静音
+	{ 0,             XF86XK_AudioMicMute,      spawn,          {.v = micmute      } }, // 静音
+	{ 0,         XF86XK_AudioLowerVolume,      spawn,          {.v = volumedown   } }, // 音量减小
+	{ 0,         XF86XK_AudioRaiseVolume,      spawn,          {.v = volumeup     } }, // 音量增加
+	{ 0,        XF86XK_MonBrightnessDown,      spawn,          {.v = backlightdec } }, // screen light
+	{ 0,          XF86XK_MonBrightnessUp,      spawn,          {.v = backlightinc } }, // screen light
+	{ 0,              XF86XK_ScreenSaver,      spawn,          {.v = lockscreen   } }, // screen light
+	{ 0,                   XF86XK_WebCam,      spawn,          {.v = webcam       } }, // screen light
+	{ 0,           XF86XK_TouchpadToggle,      spawn,          {.v = touchpadtoggle     } }, // screen light
 	{ ALTKEY|ShiftMask,             XK_5,      spawn,          {.v = screentools  } }, // screentools
 	{ 0,                        XK_Print,      spawn,          {.v = screenshot   } }, // screenshot to clipboard
 	{ MODKEY,               XK_backslash,      spawn,          {.v = lockscreen   } },
