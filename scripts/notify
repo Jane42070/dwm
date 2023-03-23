@@ -1,4 +1,0 @@
-#!/bin/sh
-while clipnotify; do
-	notify-send -t 3000 "Clipboard updated"
-done

@@ -43,18 +43,6 @@ install: all
 	mkdir -p ${DESTDIR}${MANPREFIX}/man1
 	sed "s/VERSION/${VERSION}/g" < dwm.1 > ${DESTDIR}${MANPREFIX}/man1/dwm.1
 	chmod 644 ${DESTDIR}${MANPREFIX}/man1/dwm.1
-	cp scripts/touchpadtoggle /usr/local/bin/
-	cp scripts/sound /usr/local/bin/
-	cp scripts/notify /usr/local/bin/
-	cp scripts/prompt /usr/local/bin/
-	cp scripts/screenshot /usr/local/bin/
-	cp scripts/screentools /usr/local/bin/
-	chmod 755 /usr/local/bin/touchpadtoggle
-	chmod 755 /usr/local/bin/sound
-	chmod 755 /usr/local/bin/notify
-	chmod 755 /usr/local/bin/prompt
-	chmod 755 /usr/local/bin/screenshot
-	chmod 755 /usr/local/bin/screentools
 
 uninstall:
 	rm -f ${DESTDIR}${PREFIX}/bin/dwm\
