@@ -19,14 +19,12 @@ static const int showbar           = 1;        /* 0 means no bar */
 static const int topbar            = 1;        /* 0 means bottom bar */
 static const Bool viewontag        = True;     /* Switch view on tag switch */
 static const char *fonts[]         = {
-	"Cascadia Mono:size=11"
-	"Hack Nerd Font Mono:size=11",
-	"WenQuanYi Zen Hei Mono:size=11",
-	// "Operator Mono SSm Book:size=11",
-	"JoyPixels:size=11",
-	"Noto Color Emoji:size=11",
+	"Cascadia Mono:size=12",
+	"JoyPixels:size=12",
+	"Noto Color Emoji:size=12",
+	"WenQuanYi Zen Hei Mono:size=12"
 };
-static const char dmenufont[] = "Cascadia Mono:size=11";
+static const char dmenufont[] = "Cascadia Mono:size=12";
 
 static const char col_gray1[] = "#222222";
 static const char col_gray2[] = "#444444";
@@ -117,7 +115,6 @@ static char dmenumon[2]         = "0"; /* component of dmenucmd, manipulated in 
 static const char *dmenucmd[]   = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]    = { TERMINAL, NULL};
 static const char *browsercmd[] = { BROWSER, NULL };
-static const char *clipboard[]  = { "clipmenu", NULL };
 
 /* Perpare to add screenshot function
  *
@@ -140,14 +137,13 @@ static const char *screenshot[]       = { "screenshot", NULL };
 static const char *webcam[]           = { VIDEO, "/dev/video0", NULL};
 static const char *touchpadtoggle[]   = { "touchpadtoggle", NULL};
 static const char *lockscreen[]       = { SCREENLOCK, NULL};
-static const char *shutdownOrReboot[] = { "prompts", "shutdown or reboot?", "shutdown", "reboot", "no", "sudo shutdown -h now", "sudo reboot", "echo no", NULL };
 
 static Key keys[] = {
 	/* modifier                     key		   function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd     } },
 	{ MODKEY|ShiftMask,             XK_g,      spawn,          {.v = browsercmd   } },
 	{ MODKEY|ShiftMask,        XK_Return,      spawn,          {.v = termcmd      } },
-	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = shutdownOrReboot } },
+	{ MODKEY|ShiftMask,             XK_d,      spawn,          SHCMD("prompts 'shutdown or reboot?' 'shutdown' 'reboot' 'no' 'sudo poweroff' 'sudo reboot' 'echo no'")},
 	{ 0,                XF86XK_AudioMute,      spawn,          {.v = volumemute   } }, // 静音
 	{ 0,             XF86XK_AudioMicMute,      spawn,          {.v = micmute      } }, // 静音
 	{ 0,         XF86XK_AudioLowerVolume,      spawn,          {.v = volumedown   } }, // 音量减小
@@ -162,7 +158,7 @@ static Key keys[] = {
 	{ ALTKEY|ShiftMask,             XK_5,      spawn,          {.v = screentools  } }, // screentools
 	{ MODKEY,               XK_backslash,      spawn,          {.v = lockscreen   } },
 	// { 0,                    XF86LockScreen,    spawn,          {.v = lockscreen   } },
-	{ ALTKEY|ShiftMask,             XK_v,      spawn,          {.v = clipboard    } },
+	{ ALTKEY|ShiftMask,             XK_v,      spawn,          SHCMD("clipmenu")},
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[2]} },
