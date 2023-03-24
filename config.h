@@ -90,8 +90,8 @@ static int resizehints = 0;    /* 1 means respect size hints in tiled resizals *
 #include "vanitygaps.c"
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "Tile", tile },    /* first entry is default */
-	{ "Mono", monocle },
+	{ "Tile",     tile },    /* first entry is default */
+	{ "Mono",     monocle },
 	{ "[@]",      spiral },
 	{ "[\\]",     dwindle },
 	{ "H[]",      deck },
@@ -174,7 +174,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd     } },
 	{ MODKEY|ShiftMask,             XK_g,      spawn,          {.v = browsercmd   } },
 	{ MODKEY|ShiftMask,        XK_Return,      spawn,          {.v = termcmd      } },
-	{ MODKEY|ShiftMask,             XK_d,      spawn,          SHCMD("prompts 'shutdown or reboot?' 'shutdown' 'reboot' 'no' 'sudo poweroff' 'sudo reboot' 'echo no'")},
+	{ MODKEY|ShiftMask,             XK_p,      spawn,          SHCMD("prompts 'shutdown or reboot?' 'shutdown' 'reboot' 'no' 'sudo poweroff' 'sudo reboot' 'echo no'")},
 	{ 0,                XF86XK_AudioMute,      spawn,          {.v = volumemute   } }, // 静音
 	{ 0,             XF86XK_AudioMicMute,      spawn,          {.v = micmute      } }, // 静音
 	{ 0,         XF86XK_AudioLowerVolume,      spawn,          {.v = volumedown   } }, // 音量减小
@@ -185,7 +185,6 @@ static Key keys[] = {
 	{ 0,                   XF86XK_WebCam,      spawn,          {.v = webcam       } }, // screen light
 	{ 0,           XF86XK_TouchpadToggle,      spawn,          {.v = touchpadtoggle     } }, // screen light
 	{ 0,                        XK_Print,      spawn,          {.v = screenshot   } }, // screenshot to clipboard
-	{ 0,                        XK_Print,      spawn,          {.v = screenshot   } }, // screenshot to clipboard
 	{ ALTKEY|ShiftMask,             XK_5,      spawn,          {.v = screentools  } }, // screentools
 	{ MODKEY,               XK_backslash,      spawn,          {.v = lockscreen   } },
 	// { 0,                    XF86LockScreen,    spawn,          {.v = lockscreen   } },
@@ -193,9 +192,12 @@ static Key keys[] = {
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_o,      setlayout,      {.v = &layouts[2]} },
+	{ MODKEY,                       XK_d,      setlayout,      {.v = &layouts[3]} },
+	{ MODKEY|ShiftMask,             XK_d,      setlayout,      {.v = &layouts[4]} },
 	{ MODKEY,                       XK_b,      setlayout,      {.v = &layouts[5]} },
+	{ MODKEY|ShiftMask,             XK_b,      setlayout,      {.v = &layouts[6]} },
 	{ MODKEY,                       XK_c,      setlayout,      {.v = &layouts[11]} },
-	{ MODKEY|ShiftMask,             XK_m,      setlayout,      {.v = &layouts[12]} },
+	{ MODKEY|ShiftMask,             XK_c,      setlayout,      {.v = &layouts[12]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[13]} },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
@@ -228,7 +230,7 @@ static Key keys[] = {
 	{ MODKEY|Mod4Mask|ShiftMask,    XK_0,      defaultgaps,    {0} },
 	{ MODKEY,                     XK_Tab,      view,           {0} },
 	{ MODKEY,                       XK_q,      killclient,     {0} },
-	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
+	{ MODKEY|ControlMask,           XK_b,      togglebar,      {0} },
 	{ MODKEY|ShiftMask,             XK_f,      fullscreen,     {0} },
 	{ MODKEY,                   XK_space,      setlayout,      {0} },
 	{ MODKEY|ShiftMask,         XK_space,      togglefloating, {0} },
