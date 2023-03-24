@@ -12,34 +12,35 @@
 #define SCREENLOCK "slock"
 
 /* appearance */
-static unsigned int borderpx = 5;        /* border pixel of windows */
-static unsigned int snap     = 32;       /* snap pixel */
-static unsigned int gappih   = 20;       /* horiz inner gap between windows */
-static unsigned int gappiv   = 10;       /* vert inner gap between windows */
-static unsigned int gappoh   = 10;       /* horiz outer gap between windows and screen edge */
-static unsigned int gappov   = 30;       /* vert outer gap between windows and screen edge */
-static int smartgaps         = 0;        /* 1 means no outer gap when there is only one window */
-static int showbar           = 1;        /* 0 means no bar */
-static int topbar            = 1;        /* 0 means bottom bar */
-static const char *fonts[]   = {
-	"monospace:size=12",
+static unsigned int borderpx  = 3;        /* border pixel of windows */
+static unsigned int snap      = 32;       /* snap pixel */
+static unsigned int gappih    = 20;       /* horiz inner gap between windows */
+static unsigned int gappiv    = 10;       /* vert inner gap between windows */
+static unsigned int gappoh    = 10;       /* horiz outer gap between windows and screen edge */
+static unsigned int gappov    = 30;       /* vert outer gap between windows and screen edge */
+static int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
+static int showbar            = 1;        /* 0 means no bar */
+static int topbar             = 1;        /* 0 means bottom bar */
+static char font[]            = "monospace:size=12";
+static char dmenufont[]       = "Cascadia Mono:size=12";
+static const char *fonts[]    = {
+	font,
 	"JoyPixels:size=12",
 	"Noto Color Emoji:size=12",
 	"WenQuanYi Zen Hei Mono:size=12"
 };
-static char dmenufont[]       = "Cascadia Mono:size=12";
 static char normbgcolor[]     = "#222222";
 static char normbordercolor[] = "#444444";
 static char normfgcolor[]     = "#bbbbbb";
 static char selfgcolor[]      = "#eeeeee";
 static char selbordercolor[]  = "#005577";
 static char selbgcolor[]      = "#005577";
-static char col1[] = "#ffffff";
-static char col2[] = "#ffffff";
-static char col3[] = "#ffffff";
-static char col4[] = "#ffffff";
-static char col5[] = "#ffffff";
-static char col6[] = "#ffffff";
+static char col1[]            = "#ffffff";
+static char col2[]            = "#ffffff";
+static char col3[]            = "#ffffff";
+static char col4[]            = "#ffffff";
+static char col5[]            = "#ffffff";
+static char col6[]            = "#ffffff";
 
 enum { SchemeNorm, SchemeCol1, SchemeCol2, SchemeCol3, SchemeCol4,
        SchemeCol5, SchemeCol6, SchemeSel }; /* color schemes */
@@ -65,7 +66,7 @@ static const unsigned int alphas[][3]      = {
 
 /* tagging */
 // static const char *tags[] = {"\uf120", "\uf7ae", "\uf04b", "\uf121", "\ue62e", "\u266C", "\ue727", "\uf537", "\uf684"};
-static const char *tags[] = {"1", "2", "3", "4", "5", "6"};
+static const char *tags[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -153,7 +154,7 @@ static const char *lockscreen[]       = { SCREENLOCK, NULL};
  * Xresources preferences to load at startup
  */
 ResourcePref resources[] = {
-		// { "font",               STRING,  &font },
+		{ "font",               STRING,  &font },
 		{ "dmenufont",          STRING,  &dmenufont },
 		{ "normbgcolor",        STRING,  &normbgcolor },
 		{ "normbordercolor",    STRING,  &normbordercolor },
