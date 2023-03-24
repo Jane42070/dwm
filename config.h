@@ -46,8 +46,6 @@ static char col6[]            = "#ffffff";
 enum { SchemeNorm, SchemeCol1, SchemeCol2, SchemeCol3, SchemeCol4,
        SchemeCol5, SchemeCol6, SchemeSel }; /* color schemes */
 
-static const unsigned int baralpha    = 0xd0;
-static const unsigned int borderalpha = OPAQUE;
 static char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
@@ -58,11 +56,6 @@ static char *colors[][3]      = {
 	[SchemeCol5] = { col5,      normbgcolor, normbordercolor },
 	[SchemeCol6] = { col6,      normbgcolor, normbordercolor },
 	[SchemeSel]  = { selfgcolor,  selbordercolor, selbgcolor },
-};
-static const unsigned int alphas[][3]      = {
-	/*               fg      bg        border     */
-	[SchemeNorm] = { OPAQUE, baralpha, borderalpha },
-	[SchemeSel]  = { OPAQUE, baralpha, borderalpha },
 };
 
 /* tagging */
@@ -206,7 +199,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_m,      spawn,          {.v = music        } },
 	{ MODKEY|ShiftMask,             XK_m,      spawn,          {.v = email        } },
 	{ MODKEY,                       XK_a,      spawn,          {.v = audio        } },
-	{ MODKEY,                       XK_c,      spawn,          {.v = calendar     } },
+	{ MODKEY|ShiftMask,             XK_a,      spawn,          {.v = calendar     } },
 	{ ALTKEY|ShiftMask,             XK_v,      spawn,          {.v = clipmenu     } },
 	{ ALTKEY|ShiftMask,             XK_p,      spawn,          {.v = passmenu     } },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} }, /* Tile */
