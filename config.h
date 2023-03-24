@@ -12,7 +12,7 @@
 #define SCREENLOCK "slock"
 
 /* appearance */
-static unsigned int borderpx  = 3;        /* border pixel of windows */
+static unsigned int borderpx  = 6;        /* border pixel of windows */
 static unsigned int snap      = 32;       /* snap pixel */
 static int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static unsigned int gappih    = 20;       /* horiz inner gap between windows */
@@ -91,19 +91,24 @@ static int resizehints = 0;    /* 1 means respect size hints in tiled resizals *
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "Tile",     tile },    /* first entry is default */
+	{ "TTT",      bstack },  /* Master on top, slaves on bottom */
+
 	{ "Mono",     monocle },
+	{ "H[]",      deck },
+
 	{ "[@]",      spiral },
 	{ "[\\]",     dwindle },
-	{ "H[]",      deck },
-	{ "TTT",      bstack },
+
+	{ "|M|",      centeredmaster },
+	{ ">M>",      centeredfloatingmaster },
+
+	{ "><>",      NULL },    /* no layout function means floating behavior */
+
 	{ "===",      bstackhoriz },
 	{ "HHH",      grid },
 	{ "###",      nrowgrid },
 	{ "---",      horizgrid },
 	{ ":::",      gaplessgrid },
-	{ "|M|",      centeredmaster },
-	{ ">M>",      centeredfloatingmaster },
-	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ NULL,       NULL },
 };
 
@@ -147,26 +152,35 @@ static const char *screenshot[]       = { "screenshot", NULL };
 static const char *webcam[]           = { VIDEO, "/dev/video0", NULL};
 static const char *touchpadtoggle[]   = { "touchpadtoggle", NULL};
 static const char *lockscreen[]       = { SCREENLOCK, NULL};
+static const char *filebrowser[]      = { TERMINAL, "-e", "lfub", NULL};
+static const char *taskmanager[]      = { TERMINAL, "-e", "btop", NULL};
+static const char *music[]            = { TERMINAL, "-e", MUSIC, NULL};
+static const char *email[]            = { TERMINAL, "-e", "neomutt", NULL};
+static const char *audio[]            = { TERMINAL, "-e", "pulsemixer", NULL};
+static const char *calendar[]         = { TERMINAL, "-e", "calcurse", NULL};
+static const char *clipmenu[]         = { "clipmenu", NULL};
+static const char *passmenu[]         = { "passmenu", NULL};
+static const char *shutdownOr[]       = { "prompts", "shutdown or reboot?", "shutdown", "reboot", "no", "sudo poweroff", "sudo reboot", "echo no", NULL};
 
 /*
  * Xresources preferences to load at startup
  */
 ResourcePref resources[] = {
-		{ "font",               STRING,  &font },
-		{ "dmenufont",          STRING,  &dmenufont },
-		{ "normbgcolor",        STRING,  &normbgcolor },
-		{ "normbordercolor",    STRING,  &normbordercolor },
-		{ "normfgcolor",        STRING,  &normfgcolor },
-		{ "selbgcolor",         STRING,  &selbgcolor },
-		{ "selbordercolor",     STRING,  &selbordercolor },
-		{ "selfgcolor",         STRING,  &selfgcolor },
-		{ "borderpx",          	INTEGER, &borderpx },
-		{ "snap",          		INTEGER, &snap },
-		{ "showbar",          	INTEGER, &showbar },
-		{ "topbar",          	INTEGER, &topbar },
-		{ "nmaster",          	INTEGER, &nmaster },
-		{ "resizehints",       	INTEGER, &resizehints },
-		{ "mfact",      	 	FLOAT,   &mfact },
+		{ "font",		STRING,		&font },
+		{ "font",		STRING,		&dmenufont },
+		{ "color0",		STRING,		&normbgcolor },
+		{ "color0",		STRING,		&normbordercolor },
+		{ "color4",		STRING,		&normfgcolor },
+		{ "color4",		STRING,		&selbgcolor },
+		{ "color8",		STRING,		&selbordercolor },
+		{ "color0",		STRING,		&selfgcolor },
+		{ "borderpx",	INTEGER,	&borderpx },
+		{ "snap",		INTEGER,	&snap },
+		{ "showbar",	INTEGER,	&showbar },
+		{ "topbar",		INTEGER,	&topbar },
+		{ "nmaster",	INTEGER,	&nmaster },
+		{ "resizehints",INTEGER,	&resizehints },
+		{ "mfact",		FLOAT,		&mfact },
 };
 
 static Key keys[] = {
@@ -174,7 +188,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd     } },
 	{ MODKEY|ShiftMask,             XK_g,      spawn,          {.v = browsercmd   } },
 	{ MODKEY|ShiftMask,        XK_Return,      spawn,          {.v = termcmd      } },
-	{ MODKEY|ShiftMask,             XK_p,      spawn,          SHCMD("prompts 'shutdown or reboot?' 'shutdown' 'reboot' 'no' 'sudo poweroff' 'sudo reboot' 'echo no'")},
+	{ MODKEY|ShiftMask,             XK_p,      spawn,          {.v = shutdownOr   } },
 	{ 0,                XF86XK_AudioMute,      spawn,          {.v = volumemute   } }, // 静音
 	{ 0,             XF86XK_AudioMicMute,      spawn,          {.v = micmute      } }, // 静音
 	{ 0,         XF86XK_AudioLowerVolume,      spawn,          {.v = volumedown   } }, // 音量减小
@@ -183,22 +197,27 @@ static Key keys[] = {
 	{ 0,          XF86XK_MonBrightnessUp,      spawn,          {.v = backlightinc } }, // screen light
 	{ 0,              XF86XK_ScreenSaver,      spawn,          {.v = lockscreen   } }, // screen light
 	{ 0,                   XF86XK_WebCam,      spawn,          {.v = webcam       } }, // screen light
-	{ 0,           XF86XK_TouchpadToggle,      spawn,          {.v = touchpadtoggle     } }, // screen light
+	{ 0,           XF86XK_TouchpadToggle,      spawn,          {.v = touchpadtoggle } }, // screen light
 	{ 0,                        XK_Print,      spawn,          {.v = screenshot   } }, // screenshot to clipboard
 	{ ALTKEY|ShiftMask,             XK_5,      spawn,          {.v = screentools  } }, // screentools
 	{ MODKEY,               XK_backslash,      spawn,          {.v = lockscreen   } },
-	// { 0,                    XF86LockScreen,    spawn,          {.v = lockscreen   } },
-	{ ALTKEY|ShiftMask,             XK_v,      spawn,          SHCMD("clipmenu")},
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_o,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                       XK_d,      setlayout,      {.v = &layouts[3]} },
-	{ MODKEY|ShiftMask,             XK_d,      setlayout,      {.v = &layouts[4]} },
-	{ MODKEY,                       XK_b,      setlayout,      {.v = &layouts[5]} },
-	{ MODKEY|ShiftMask,             XK_b,      setlayout,      {.v = &layouts[6]} },
-	{ MODKEY,                       XK_c,      setlayout,      {.v = &layouts[11]} },
-	{ MODKEY|ShiftMask,             XK_c,      setlayout,      {.v = &layouts[12]} },
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[13]} },
+	{ MODKEY,                       XK_e,      spawn,          {.v = filebrowser  } },
+	{ MODKEY|ShiftMask,             XK_e,      spawn,          {.v = taskmanager  } },
+	{ MODKEY,                       XK_m,      spawn,          {.v = music        } },
+	{ MODKEY|ShiftMask,             XK_m,      spawn,          {.v = email        } },
+	{ MODKEY,                       XK_a,      spawn,          {.v = audio        } },
+	{ MODKEY,                       XK_c,      spawn,          {.v = calendar     } },
+	{ ALTKEY|ShiftMask,             XK_v,      spawn,          {.v = clipmenu     } },
+	{ ALTKEY|ShiftMask,             XK_p,      spawn,          {.v = passmenu     } },
+	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} }, /* Tile */
+	{ MODKEY|ShiftMask,             XK_t,      setlayout,      {.v = &layouts[1]} }, /* bstack */
+	{ MODKEY,                       XK_y,      setlayout,      {.v = &layouts[2]} }, /* monocle */
+	{ MODKEY|ShiftMask,             XK_y,      setlayout,      {.v = &layouts[3]} }, /* deck */
+	{ MODKEY,                       XK_o,      setlayout,      {.v = &layouts[4]} }, /* spiral */
+	{ MODKEY|ShiftMask,             XK_o,      setlayout,      {.v = &layouts[5]} }, /* dwindle */
+	{ MODKEY,                       XK_c,      setlayout,      {.v = &layouts[6]} }, /* centeredmaster */
+	{ MODKEY|ShiftMask,             XK_c,      setlayout,      {.v = &layouts[7]} }, /* centeredfloatingmaster */
+	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[8]} }, /* float */
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
