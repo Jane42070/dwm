@@ -14,6 +14,7 @@
 /* appearance */
 static unsigned int borderpx  = 3;        /* border pixel of windows */
 static unsigned int snap      = 32;       /* snap pixel */
+static int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static unsigned int gappih    = 20;       /* horiz inner gap between windows */
 static unsigned int gappiv    = 10;       /* vert inner gap between windows */
 static unsigned int gappoh    = 10;       /* horiz outer gap between windows and screen edge */
@@ -73,14 +74,11 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "wps",         NULL,       NULL,       0,            1,           -1 },
-	{ "Gimp",        NULL,       NULL,       0,            1,           -1 },
-	{ "kicad",       NULL,       NULL,       0,            1,           -1 },
-	{ "Etcher",      NULL,       NULL,       0,            1,           -1 },
-	{ "chromium",    NULL,       NULL,       1 << 8,       0,           -1 },
-	{ "Telegram",    NULL,       NULL,       0,            1,           -1 },
-	{ "icalingua",   NULL,       NULL,       0,            1,           -1 },
+	/* class     instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
+	{ "Gimp",      NULL,     NULL,           0,         1,          0,           0,        -1 },
+	{ "Librewolf", NULL,     NULL,           1 << 8,    0,          0,          -1,        -1 },
+	{ "St",        NULL,     NULL,           0,         0,          1,           0,        -1 },
+	{ NULL,        NULL,     "Event Tester", 0,         0,          0,           1,        -1 }, /* xev */
 };
 
 /* layout(s) */
