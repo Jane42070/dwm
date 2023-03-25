@@ -70,6 +70,7 @@ static const Rule rules[] = {
 	/* class     instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
 	{ "Gimp",      NULL,     NULL,           0,         1,          0,           0,        -1 },
 	{ "Librewolf", NULL,     NULL,           1 << 8,    0,          0,          -1,        -1 },
+	{ "Surf",      NULL,     NULL,           1 << 8,    0,          0,          -1,        -1 },
 	{ "St",        NULL,     NULL,           0,         0,          1,           0,        -1 },
 	{ NULL,        NULL,     "Event Tester", 0,         0,          0,           1,        -1 }, /* xev */
 };
@@ -81,6 +82,7 @@ static int resizehints = 0;    /* 1 means respect size hints in tiled resizals *
 
 #define FORCE_VSPLIT 1  /* nrowgrid layout: force two clients to always split vertically */
 #include "vanitygaps.c"
+
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "Tile",     tile },    /* first entry is default */
