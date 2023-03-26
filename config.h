@@ -200,10 +200,12 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_e,      spawn,          {.v = taskmanager  } },
 	{ MODKEY,                       XK_m,      spawn,          {.v = music        } },
 	{ MODKEY|ShiftMask,             XK_m,      spawn,          {.v = email        } },
-	{ MODKEY,                       XK_a,      spawn,          {.v = audio        } },
-	{ MODKEY|ShiftMask,             XK_a,      spawn,          {.v = calendar     } },
-	{ ALTKEY|ShiftMask,             XK_v,      spawn,          {.v = clipmenu     } },
-	{ ALTKEY|ShiftMask,             XK_p,      spawn,          {.v = passmenu     } },
+	{ MODKEY,                       XK_a,      spawn,          {.v = calendar     } },
+	{ MODKEY|ShiftMask,             XK_a,      spawn,          {.v = audio        } },
+	{ ALTKEY|ShiftMask,             XK_v,      spawn,           SHCMD("clipmenu")   },
+	{ ALTKEY|ShiftMask,             XK_p,      spawn,           SHCMD("passmenu")   },
+	{ ALTKEY|ShiftMask,             XK_m,      spawn,           SHCMD("mounter")    },
+	{ ALTKEY|ShiftMask,             XK_n,      spawn,           SHCMD("unmounter")  },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} }, /* Tile */
 	{ MODKEY|ShiftMask,             XK_t,      setlayout,      {.v = &layouts[1]} }, /* bstack */
 	{ MODKEY,                       XK_y,      setlayout,      {.v = &layouts[2]} }, /* monocle */
@@ -245,7 +247,6 @@ static Key keys[] = {
 	{ MODKEY,                     XK_Tab,      view,           {0} },
 	{ MODKEY,                       XK_q,      killclient,     {0} },
 	{ MODKEY|ControlMask,           XK_b,      togglebar,      {0} },
-	{ MODKEY|ShiftMask,             XK_f,      fullscreen,     {0} },
 	{ MODKEY,                   XK_space,      setlayout,      {0} },
 	{ MODKEY|ShiftMask,         XK_space,      togglefloating, {0} },
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
