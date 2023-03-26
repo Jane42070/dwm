@@ -137,7 +137,10 @@ static const char *music[]          = { TERMINAL, "-e", MUSIC, NULL};
 static const char *email[]          = { TERMINAL, "-e", "neomutt", NULL};
 static const char *audio[]          = { TERMINAL, "-e", "pulsemixer", NULL};
 static const char *calendar[]       = { TERMINAL, "-e", "calcurse", NULL};
+static const char *newsboat[]       = { TERMINAL, "-e", "newsboat", NULL};
 static const char *shutdownOr[]     = { "prompts", "shutdown or reboot?", "shutdown", "reboot", "no", "sudo poweroff", "sudo reboot", "echo no", NULL};
+static const char *mountOption[]    = { "prompts", "mount local or cifs?", "local", "cifs", "no", "mounter", "dmenumountcifs", "echo no", NULL};
+static const char *umountOption[]   = { "prompts", "unmount local or cifs?", "local", "cifs", "no", "unmounter", "dmenuumountcifs", "echo no", NULL};
 
 /*
  * Xresources preferences to load at startup
@@ -157,6 +160,10 @@ ResourcePref resources[] = {
 		{ "topbar",      INTEGER, &topbar },
 		{ "nmaster",     INTEGER, &nmaster },
 		{ "resizehints", INTEGER, &resizehints },
+		{ "gappih",      INTEGER, &gappih },
+		{ "gappiv",      INTEGER, &gappiv },
+		{ "gappoh",      INTEGER, &gappoh },
+		{ "gappov",      INTEGER, &gappov },
 		{ "mfact",       FLOAT,   &mfact },
 };
 
@@ -184,10 +191,11 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_m,      spawn,          {.v = email        } },
 	{ MODKEY,                       XK_a,      spawn,          {.v = calendar     } },
 	{ MODKEY|ShiftMask,             XK_a,      spawn,          {.v = audio        } },
+	{ MODKEY,                       XK_n,      spawn,          {.v = newsboat     } },
 	{ ALTKEY|ShiftMask,             XK_v,      spawn,           SHCMD("clipmenu")   },
 	{ ALTKEY|ShiftMask,             XK_p,      spawn,           SHCMD("passmenu")   },
-	{ ALTKEY|ShiftMask,             XK_m,      spawn,           SHCMD("mounter")    },
-	{ ALTKEY|ShiftMask,             XK_n,      spawn,           SHCMD("unmounter")  },
+	{ ALTKEY|ShiftMask,             XK_m,      spawn,          {.v = mountOption  } },
+	{ ALTKEY|ShiftMask,             XK_n,      spawn,          {.v = umountOption } },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} }, /* Tile */
 	{ MODKEY|ShiftMask,             XK_t,      setlayout,      {.v = &layouts[1]} }, /* bstack */
 	{ MODKEY,                       XK_y,      setlayout,      {.v = &layouts[2]} }, /* monocle */
@@ -228,20 +236,20 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 	// unuse
-	{ MODKEY|Mod4Mask,              XK_u,      incrgaps,       {.i = +1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_u,      incrgaps,       {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_i,      incrigaps,      {.i = +1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_i,      incrigaps,      {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_o,      incrogaps,      {.i = +1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_o,      incrogaps,      {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_6,      incrihgaps,     {.i = +1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_6,      incrihgaps,     {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_7,      incrivgaps,     {.i = +1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_7,      incrivgaps,     {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_8,      incrohgaps,     {.i = +1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_8,      incrohgaps,     {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_9,      incrovgaps,     {.i = +1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_9,      incrovgaps,     {.i = -1 } },
+	// { MODKEY|Mod4Mask,              XK_u,      incrgaps,       {.i = +1 } },
+	// { MODKEY|Mod4Mask|ShiftMask,    XK_u,      incrgaps,       {.i = -1 } },
+	// { MODKEY|Mod4Mask,              XK_i,      incrigaps,      {.i = +1 } },
+	// { MODKEY|Mod4Mask|ShiftMask,    XK_i,      incrigaps,      {.i = -1 } },
+	// { MODKEY|Mod4Mask,              XK_o,      incrogaps,      {.i = +1 } },
+	// { MODKEY|Mod4Mask|ShiftMask,    XK_o,      incrogaps,      {.i = -1 } },
+	// { MODKEY|Mod4Mask,              XK_6,      incrihgaps,     {.i = +1 } },
+	// { MODKEY|Mod4Mask|ShiftMask,    XK_6,      incrihgaps,     {.i = -1 } },
+	// { MODKEY|Mod4Mask,              XK_7,      incrivgaps,     {.i = +1 } },
+	// { MODKEY|Mod4Mask|ShiftMask,    XK_7,      incrivgaps,     {.i = -1 } },
+	// { MODKEY|Mod4Mask,              XK_8,      incrohgaps,     {.i = +1 } },
+	// { MODKEY|Mod4Mask|ShiftMask,    XK_8,      incrohgaps,     {.i = -1 } },
+	// { MODKEY|Mod4Mask,              XK_9,      incrovgaps,     {.i = +1 } },
+	// { MODKEY|Mod4Mask|ShiftMask,    XK_9,      incrovgaps,     {.i = -1 } },
 };
 
 /* button definitions */
