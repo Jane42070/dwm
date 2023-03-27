@@ -56,8 +56,7 @@ static const Rule rules[] = {
 	 */
 	/* class     instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
 	{ "Gimp",      NULL,     NULL,           0,         1,          0,           0,        -1 },
-	{ "Librewolf", NULL,     NULL,           1 << 8,    0,          0,          -1,        -1 },
-	{ "Surf",      NULL,     NULL,           1 << 8,    0,          0,           1,        -1 },
+	{ "librewolf", NULL,     NULL,           0,         0,          0,           1,        -1 },
 	{ "St",        NULL,     NULL,           0,         0,          1,           0,        -1 },
 	{ NULL,        NULL,     "Event Tester", 0,         0,          0,           1,        -1 }, /* xev */
 };
@@ -123,6 +122,9 @@ static const char *browser[]        = { "librewolf", NULL };
 static const char *volumeup[]       = { "sound", "4", NULL };
 static const char *volumedown[]     = { "sound", "6", NULL };
 static const char *volumemute[]     = { "sound", "2", NULL };
+static const char *songnext[]       = { "mpc", "next", NULL };
+static const char *songprev[]       = { "mpc", "prev", NULL };
+static const char *songtoggle[]     = { "mpc", "toggle", NULL };
 static const char *micmute[]        = { "pamixer", "--default-source", "-t", NULL };
 static const char *backlightinc[]   = { "xbacklight", "-inc", "10", NULL};
 static const char *backlightdec[]   = { "xbacklight", "-dec", "10", NULL};
@@ -173,17 +175,20 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_g,      spawn,          {.v = browser } },
 	{ MODKEY|ShiftMask,             XK_p,      spawn,          {.v = shutdownOr   } },
-	{ 0,                XF86XK_AudioMute,      spawn,          {.v = volumemute   } }, // 静音
-	{ 0,             XF86XK_AudioMicMute,      spawn,          {.v = micmute      } }, // 静音
-	{ 0,         XF86XK_AudioLowerVolume,      spawn,          {.v = volumedown   } }, // 音量减小
-	{ 0,         XF86XK_AudioRaiseVolume,      spawn,          {.v = volumeup     } }, // 音量增加
-	{ 0,        XF86XK_MonBrightnessDown,      spawn,          {.v = backlightdec } }, // screen light
-	{ 0,          XF86XK_MonBrightnessUp,      spawn,          {.v = backlightinc } }, // screen light
-	{ 0,              XF86XK_ScreenSaver,      spawn,          {.v = lockscreen   } }, // screen light
-	{ 0,                   XF86XK_WebCam,      spawn,          {.v = webcam       } }, // screen light
-	{ 0,           XF86XK_TouchpadToggle,      spawn,          {.v = touchpadtoggle } }, // screen light
-	{ 0,                        XK_Print,      spawn,          {.v = screenshot   } }, // screenshot to clipboard
-	{ ALTKEY|ShiftMask,             XK_5,      spawn,          {.v = screentools  } }, // screentools
+	{ 0,                XF86XK_AudioMute,      spawn,          {.v = volumemute   } },
+	{ 0,             XF86XK_AudioMicMute,      spawn,          {.v = micmute      } },
+	{ 0,         XF86XK_AudioLowerVolume,      spawn,          {.v = volumedown   } },
+	{ 0,         XF86XK_AudioRaiseVolume,      spawn,          {.v = volumeup     } },
+	{ 0,                XF86XK_AudioNext,      spawn,          {.v = songnext     } },
+	{ 0,                XF86XK_AudioPlay,      spawn,          {.v = songtoggle   } },
+	{ 0,                XF86XK_AudioPrev,      spawn,          {.v = songprev     } },
+	{ 0,        XF86XK_MonBrightnessDown,      spawn,          {.v = backlightdec } },
+	{ 0,          XF86XK_MonBrightnessUp,      spawn,          {.v = backlightinc } },
+	{ 0,              XF86XK_ScreenSaver,      spawn,          {.v = lockscreen   } },
+	{ 0,                   XF86XK_WebCam,      spawn,          {.v = webcam       } },
+	{ 0,           XF86XK_TouchpadToggle,      spawn,          {.v = touchpadtoggle } }, 
+	{ 0,                        XK_Print,      spawn,          {.v = screenshot   } },
+	{ ALTKEY|ShiftMask,             XK_5,      spawn,          {.v = screentools  } },
 	{ MODKEY,               XK_backslash,      spawn,          {.v = lockscreen   } },
 	{ MODKEY,                       XK_e,      spawn,          {.v = filebrowser  } },
 	{ MODKEY|ShiftMask,             XK_e,      spawn,          {.v = taskmanager  } },
