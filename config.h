@@ -148,7 +148,7 @@ static const char *email[]          = { TERMINAL, "-e", "neomutt", NULL};
 static const char *audio[]          = { TERMINAL, "-e", "pulsemixer", NULL};
 static const char *calendar[]       = { TERMINAL, "-e", "calcurse", NULL};
 static const char *newsboat[]       = { TERMINAL, "-e", "newsboat", NULL};
-static const char *shutdownOr[]     = { "prompts", "shutdown or reboot?", "shutdown", "reboot", "no", "sudo poweroff", "sudo reboot", "echo no", NULL};
+// static const char *shutdownOr[]     = { "prompts", "shutdown or reboot?", "shutdown", "reboot", "no", "sudo poweroff", "sudo reboot", "echo no", NULL};
 static const char *mountOption[]    = { "prompts", "mount local or cifs?", "local", "cifs", "no", "mounter", "dmenumountcifs", "echo no", NULL};
 static const char *umountOption[]   = { "prompts", "unmount local or cifs?", "local", "cifs", "no", "unmounter", "dmenuumountcifs", "echo no", NULL};
 
@@ -179,10 +179,10 @@ ResourcePref resources[] = {
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY|ShiftMask,             XK_g,      spawn,          {.v = browser } },
-	{ MODKEY|ShiftMask,             XK_p,      spawn,          {.v = shutdownOr   } },
+	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd     } },
+	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd      } },
+	{ MODKEY|ShiftMask,             XK_g,      spawn,          {.v = browser      } },
+	{ MODKEY|ShiftMask,             XK_p,      spawn,           SHCMD("sysact")     },
 	{ 0,                XF86XK_AudioMute,      spawn,          {.v = volumemute   } },
 	{ 0,             XF86XK_AudioMicMute,      spawn,          {.v = micmute      } },
 	{ 0,         XF86XK_AudioLowerVolume,      spawn,          {.v = volumedown   } },
