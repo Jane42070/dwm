@@ -1,0 +1,73 @@
+diff --git a/config.h b/config.h
+index d4c123e..82ded70 100644
+--- a/config.h
++++ b/config.h
+@@ -1,13 +1,14 @@
+ /* See LICENSE file for copyright and license details. */
+ 
+ /* appearance */
+ static unsigned int borderpx  = 3;        /* border pixel of windows */
+ static unsigned int snap      = 32;       /* snap pixel */
+ static int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
+ static unsigned int gappih    = 20;       /* horiz inner gap between windows */
+ static unsigned int gappiv    = 10;       /* vert inner gap between windows */
+ static unsigned int gappoh    = 10;       /* horiz outer gap between windows and screen edge */
+ static unsigned int gappov    = 30;       /* vert outer gap between windows and screen edge */
++static unsigned int dpi       = 96;       /* monitor display dpi */
+ static int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
+ static int showbar            = 1;        /* 0 means no bar */
+ static int topbar             = 1;        /* 0 means bottom bar */
+@@ -164,17 +165,25 @@ ResourcePref resources[] = {
+ 		{ "color4",      STRING,  &selbgcolor },
+ 		{ "color8",      STRING,  &selbordercolor },
+ 		{ "color0",      STRING,  &selfgcolor },
+-		{ "borderpx",    INTEGER, &borderpx },
+-		{ "snap",        INTEGER, &snap },
++		{ "dpi",         INTEGER, &dpi },
+ 		{ "showbar",     INTEGER, &showbar },
+ 		{ "topbar",      INTEGER, &topbar },
+ 		{ "nmaster",     INTEGER, &nmaster },
+ 		{ "resizehints", INTEGER, &resizehints },
++		{ "mfact",       FLOAT,   &mfact },
++};
++
++/* dpi Xresources */
++/**
++ * TODO: add font dpi
++ */
++ResourcePref dpi_resources[] = {
++		{ "borderpx",    INTEGER, &borderpx },
++		{ "snap",        INTEGER, &snap },
+ 		{ "gappih",      INTEGER, &gappih },
+ 		{ "gappiv",      INTEGER, &gappiv },
+ 		{ "gappoh",      INTEGER, &gappoh },
+ 		{ "gappov",      INTEGER, &gappov },
+-		{ "mfact",       FLOAT,   &mfact },
+ };
+ 
+ static const Key keys[] = {
+diff --git a/dwm.c b/dwm.c
+index 12fa7dc..0d7ce11 100644
+--- a/dwm.c
++++ b/dwm.c
+@@ -2703,6 +2703,7 @@ load_xresources(void)
+ 	char *resm;
+ 	XrmDatabase db;
+ 	ResourcePref *p;
++	float scale;
+ 
+ 	display = XOpenDisplay(NULL);
+ 	resm = XResourceManagerString(display);
+@@ -2712,6 +2713,12 @@ load_xresources(void)
+ 	db = XrmGetStringDatabase(resm);
+ 	for (p = resources; p < resources + LENGTH(resources); p++)
+ 		resource_load(db, p->name, p->type, p->dst);
++	/* dwm.dpi controls xresources */
++	for (p = dpi_resources; p < dpi_resources + LENGTH(dpi_resources); p++) {
++		scale = (float)dpi / 96;
++		*(int *)p->dst *= scale;
++		resource_load(db, p->name, p->type, p->dst);
++	}
+ 	XCloseDisplay(display);
+ }
+ 

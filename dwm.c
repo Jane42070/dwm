@@ -2703,6 +2703,7 @@ load_xresources(void)
 	char *resm;
 	XrmDatabase db;
 	ResourcePref *p;
+	float scale;
 
 	display = XOpenDisplay(NULL);
 	resm = XResourceManagerString(display);
@@ -2712,6 +2713,12 @@ load_xresources(void)
 	db = XrmGetStringDatabase(resm);
 	for (p = resources; p < resources + LENGTH(resources); p++)
 		resource_load(db, p->name, p->type, p->dst);
+	/* dwm.dpi controls xresources */
+	for (p = dpi_resources; p < dpi_resources + LENGTH(dpi_resources); p++) {
+		scale = (float)dpi / 96;
+		*(int *)p->dst *= scale;
+		resource_load(db, p->name, p->type, p->dst);
+	}
 	XCloseDisplay(display);
 }
 
