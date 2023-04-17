@@ -90,7 +90,7 @@
 
 #define STATUSLENGTH            256
 #define DWMBLOCKSLOCKFILE       "/tmp/dwmblocks.pid"
-#define DELIMITERENDCHAR        10
+#define DELIMITERENDCHAR        16
 
 /* enums */
 enum { CurNormal, CurHand, CurResize, CurMove, CurLast }; /* cursor */
