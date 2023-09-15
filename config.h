@@ -122,12 +122,12 @@ static const Layout layouts[] = {
 #define VIDEO "mpv"
 #define SCREENLOCK "slock"
 #define MUSIC "ncmpcpp"
-#define BROWSER "librewolf"
+#define BROWSER "microsoft-edge-stable"
 /* commands */
 static char dmenumon[2]             = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[]       = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, NULL };
 static const char *termcmd[]        = { "st", NULL };
-static const char *browser[]        = { "librewolf", NULL };
+static const char *browser[]        = { "env", "GTK_IM_MODULE=xim", "microsoft-edge-stable", NULL };
 static const char *volumeup[]       = { "sound", "4", NULL };
 static const char *volumedown[]     = { "sound", "6", NULL };
 static const char *volumemute[]     = { "sound", "2", NULL };
