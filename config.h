@@ -26,24 +26,9 @@ static char normfgcolor[]     = "#bbbbbb";
 static char selfgcolor[]      = "#eeeeee";
 static char selbordercolor[]  = "#005577";
 static char selbgcolor[]      = "#005577";
-static char col1[]            = "#ffffff";
-static char col2[]            = "#ffffff";
-static char col3[]            = "#ffffff";
-static char col4[]            = "#ffffff";
-static char col5[]            = "#ffffff";
-static char col6[]            = "#ffffff";
-
-enum { SchemeNorm, SchemeCol1, SchemeCol2, SchemeCol3, SchemeCol4,
-       SchemeCol5, SchemeCol6, SchemeSel }; /* color schemes */
 static char *colors[][3]      = {
 	/*               fg           bg           border   */
 	[SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
-	[SchemeCol1] = { col1,        normbgcolor, normbordercolor },
-	[SchemeCol2] = { col2,        normbgcolor, normbordercolor },
-	[SchemeCol3] = { col3,        normbgcolor, normbordercolor },
-	[SchemeCol4] = { col4,        normbgcolor, normbordercolor },
-	[SchemeCol5] = { col5,        normbgcolor, normbordercolor },
-	[SchemeCol6] = { col6,        normbgcolor, normbordercolor },
 	[SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
 };
 
@@ -283,15 +268,10 @@ static const Button buttons[] = {
 	{ ClkLtSymbol,   0,              Button1,        setlayout,      {0} },
 	{ ClkLtSymbol,   0,              Button3,        setlayout,      {.v = &layouts[2]} },
 	{ ClkWinTitle,   0,              Button2,        zoom,           {0} },
+	{ ClkStatusText, 0,              Button2,        spawn,          {.v = termcmd } },
 	{ ClkWinTitle,   MODKEY,         Button1,        incrgaps,       {.i = +3} },
 	{ ClkWinTitle,   MODKEY,         Button2,        defaultgaps,    { 0 } },
 	{ ClkWinTitle,   MODKEY,         Button3,        incrgaps,       {.i = -3} },
-	{ ClkStatusText, 0,              Button1,        sigdwmblocks,   {.i = 1} },
-	{ ClkStatusText, 0,              Button2,        sigdwmblocks,   {.i = 2} },
-	{ ClkStatusText, 0,              Button3,        sigdwmblocks,   {.i = 3} },
-	{ ClkStatusText, ControlMask,    Button1,        sigdwmblocks,   {.i = 4} },
-	{ ClkStatusText, ControlMask,    Button2,        sigdwmblocks,   {.i = 5} },
-	{ ClkStatusText, ControlMask,    Button3,        sigdwmblocks,   {.i = 6} },
 	{ ClkClientWin,  MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,  MODKEY|ShiftMask,Button1,       resizemouse,    {0} },
 	{ ClkClientWin,  MODKEY,         Button2,        togglefloating, {0} },
