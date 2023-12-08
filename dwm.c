@@ -592,8 +592,11 @@ buttonpress(XEvent *e)
 	// debug
 	// FILE *fp;
 	// fp = fopen("/home/qilin/dwm-debug", "w+");
-	// fprintf(fp, "updatedwmblockssig: x = %d\n", x);
-	// fprintf(fp, "click: ClkStatusText = %d\n", ClkStatusText);
+	// fprintf(fp, "click: ClkTagBar = %d\n", ClkTagBar);
+	// fprintf(fp, "click: x = %d\n", x);
+	// fprintf(fp, "arg.ui: %d\n", 1 << i);
+	// fprintf(fp, "arg.ui: %d\n", 1 << i);
+	// fprintf(fp, "arg.ui: %x\n", arg.ui);
 	// fclose(fp);
 
 	int i, x;
@@ -611,10 +614,17 @@ buttonpress(XEvent *e)
 	}
 	if (ev->window == selmon->barwin) {
 		if (ev->x < ble - blw) {
+			unsigned int occ = m->tagset[m->seltags];
+			for (c = m->clients; c; c = c->next)
+				if (c->tags != (~0 & TAGMASK))
+					occ |= c->tags;
 			i = -1, x = -ev->x;
-			do
-				x += TEXTW(tags[++i]);
-			while (x <= 0);
+			do {
+				do
+					i++;
+				while (!(occ & 1 << i));
+				x += TEXTW(tags[i]);
+			} while (x <= 0);
 			click = ClkTagBar;
 			arg.ui = 1 << i;
 		} else if (ev->x < ble)
@@ -1007,15 +1017,16 @@ drawbar(Monitor *m)
 		drw_rect(drw, x, 0, wbar - x, bh, 1, 1); /* to keep right padding clean */
 	}
 
-	for (c = m->clients; c; c = c->next) {
-		occ |= c->tags;
+	for (occ = m->tagset[m->seltags], urg = 0, c = m->clients; c; c = c->next) {
+		if (c->tags != (~0 & TAGMASK))
+			occ |= c->tags;
 		if (c->isurgent)
 			urg |= c->tags;
 	}
 	x = 0;
 	for (i = 0; i < LENGTH(tags); i++) {
 		/* Do not draw vacant tags */
-		if(!(occ & 1 << i || m->tagset[m->seltags] & 1 << i))
+		if (!(occ & 1 << i))
 			continue;
 		w = TEXTW(tags[i]);
 		drw_setscheme(drw, scheme[m->tagset[m->seltags] & 1 << i ? SchemeSel : SchemeNorm]);
