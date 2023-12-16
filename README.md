@@ -3,7 +3,13 @@
 ## Features and patches
 - swallow
 - xresources
+- xresources dpi
+    - made by myself
+    - fix different vanity gaps scales in hidpi monitor and normal monitor
 - hide vacant tags
 - vanity gaps
 - dwmblocks
 - alwayscenter
+- systray
+## TODO
+- made different keybindings in server version
