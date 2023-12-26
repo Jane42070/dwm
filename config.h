@@ -132,6 +132,8 @@ static const Layout layouts[] = {
 static char dmenumon[2]             = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[]       = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, NULL };
 static const char *termcmd[]        = { "st", NULL };
+static const char scratchpadname[]  = "scratchpad";
+static const char *scratchpadcmd[]  = { "st", "-t", scratchpadname, "-g", "120x35", NULL };
 static const char *browser[]        = { "microsoft-edge-stable", NULL };
 static const char *volumeup[]       = { "sound", "4", NULL };
 static const char *volumedown[]     = { "sound", "6", NULL };
@@ -142,7 +144,7 @@ static const char *songtoggle[]     = { "mpc", "toggle", NULL };
 static const char *micmute[]        = { "pamixer", "--default-source", "-t", NULL };
 static const char *backlightinc[]   = { "xbacklight", "-inc", "10", NULL};
 static const char *backlightdec[]   = { "xbacklight", "-dec", "10", NULL};
-static const char *screentools[]    = { "screentools", NULL};
+static const char *screentools[]    = { "flameshot", "gui", NULL};
 static const char *screenshot[]     = { "screenshot", NULL };
 static const char *webcam[]         = { VIDEO, "/dev/video0", NULL};
 static const char *touchpadtoggle[] = { "touchpadtoggle", NULL};
@@ -195,6 +197,7 @@ static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd     } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd      } },
+	{ MODKEY,                       XK_grave,  togglescratch,  {.v = scratchpadcmd } },
 	{ MODKEY|ShiftMask,             XK_g,      spawn,          {.v = browser      } },
 	{ MODKEY|ShiftMask,             XK_p,      spawn,           SHCMD("sysact")     },
 	{ 0,                XF86XK_AudioMute,      spawn,          {.v = volumemute   } },
